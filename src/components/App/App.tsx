@@ -1,24 +1,19 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import {TopBar} from '../TopBar/TopBar';
+import {AppHeader} from '../AppHeader/AppHeader';
+import {AppMain} from '../AppMain/AppMain';
 
 
 const Layout = styled.div`
-
-`;
-
-const Content = styled.div`
 
 `;
  
 const App: FC = () => {
   return ( 
     <Layout>
-      <TopBar/>
-      <Content>
-        <div>Content</div>
-      </Content>
+      <AppHeader/>
+      <AppMain/>
     </Layout>
    );
 }
