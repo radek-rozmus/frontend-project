@@ -6,7 +6,7 @@ import { Reset} from 'styled-reset';
 ReactDOM.render(
   <>
     <Reset/>
-    <App />
+    <App/>
   </>,
   document.getElementById('root')
 );

@@ -16,15 +16,44 @@ export const color2 = (): Styles => {
   };
 };
 
-export const border = (): Styles => {
+export const border = (
+  width: number,
+  style: string,
+  color: string,
+  which?: string,
+): Styles => {
+  switch (which) {
+    case "bottom":
+      return {
+        borderBottom: `${width}px ${style} ${color}`,
+      };
+    case "left":
+      return {
+        borderLeft: `${width}px ${style} ${color}`,
+      };
+    case "top":
+      return {
+        borderTop: `${width}px ${style} ${color}`,
+      };
+    case "right":
+      return {
+        borderRight: `${width}px ${style} ${color}`,
+      };
+    default:
+      return {
+        border: `${width}px ${style} ${color}`,
+      };
+  }
+};
+
+export const boxShadow = (a: number, b: number, c: number, d: number) => {
   return {
-    border: `1px solid`,
+    boxShadow: `${a}px ${b}px ${c}px ${d}px ${Colors.shadowgray}`,
+    mozBoxShadow: `${a}px ${b}px ${c}px ${d}px ${Colors.shadowgray}`,
+    webkitBoxShadow: `${a}px ${b}px ${c}px ${d}px ${Colors.shadowgray}`,
   };
 };
 
 export const inputBorder = (): Styles[] => {
-  return [
-        { border: `2px solid ${Colors.lightgray}` },
-        { borderRadius: `3px` },
-    ];
+  return [{ border: `2px solid ${Colors.lightgray}` }, { borderRadius: `3px` }];
 };

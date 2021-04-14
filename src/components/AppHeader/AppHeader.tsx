@@ -1,16 +1,16 @@
 import { FC } from "React";
 import styled from "styled-components";
 
-import { Wrapper, border, inputBorder } from "../../styledHelpers/Components";
+import { Wrapper, inputBorder, border, boxShadow } from "../../styledHelpers/Components";
 
 import { Colors } from "../../styledHelpers/Colors";
 import { ExpandedMenu } from "./ExpandedMenu";
 
 //topbar style variables
 
-export const barHeight = `50px`;
-export const viewportEmptySpace = `14px`;
-export const rightIconsPanelWidth = `120px`;
+export const barHeight = `60px`;
+export const viewportEmptySpace = `20px`;
+export const rightIconsPanelWidth = `140px`;
 
 //-----------------------
 
@@ -20,6 +20,7 @@ const TopBarWrapper = styled(Wrapper)`
   top: 0;
   height: ${barHeight}; //set height to 50px
   width: 100%;
+  ${boxShadow(0, 0, 13, -3)}
 `;
 
 const InnerWrapper = styled.div`
@@ -27,7 +28,7 @@ const InnerWrapper = styled.div`
   height: 100%;
   background: ${Colors.white};
   position: relative;
-  ${border()}
+  ${border(1, 'solid', Colors.lightgray, 'bottom')}
 `;
 
 const RightIconsPanel = styled.div`
@@ -42,7 +43,7 @@ const RightIconsPanel = styled.div`
 const InputWrapper = styled.div`
   position: absolute;
   right: calc(${viewportEmptySpace} * 2 + ${rightIconsPanelWidth});
-  top: 10px;
+  top: 12px;
   width: 60%;
 `;
 
@@ -53,21 +54,20 @@ const SearchImg = styled.img`
   display: inline;
 `;
 
-const CustomImg = styled.img`
-  margin: 0 6px;
+export const CustomImg = styled.img`
+  margin: 0 10px;
 `;
 
 const AppLogo = styled.img`
   position: absolute;
   left: ${viewportEmptySpace};
   top: 5px;
-  height: 40px;
   overflow: hidden;
 `;
 
 const CustomInput = styled.input`
   background: ${Colors.white};
-  height: 26px;
+  height: 32px;
   position: relative;
   text-align: center;
   width: 60%;
@@ -79,7 +79,7 @@ export const AppHeader: FC = () => {
   return (
     <TopBarWrapper>
       <InnerWrapper>
-        <AppLogo src="./media/logo.png" />
+        <AppLogo src="./media/logo-min.png" />
         <ExpandedMenu />
         <InputWrapper>
           <CustomInput type="text" placeholder="Search"/>
