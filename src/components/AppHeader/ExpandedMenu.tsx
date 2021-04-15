@@ -1,20 +1,37 @@
 import { FC } from "React";
 import styled from "styled-components";
+import { border } from "../../styledHelpers/Components";
+import { Colors } from "../../styledHelpers/Colors";
 
 const Menu = styled.div`
-display: inline-block;
-`;
-
-export interface ExpandedMenuProps {
-    display?: boolean,
+position: absolute;
+top: 32px;
+width: 180px;
+left:0;
+background: white;
+padding: 16px;
+${border(1, 'solid', Colors.black)};
+ul {
+  ${border(1, 'solid', Colors.red)};
 }
+
+`;
  
-export const ExpandedMenu: FC<ExpandedMenuProps> = (props) => {
+export const ExpandedMenu: FC = (props) => {
     return ( 
-        props.display?
         <Menu>
-          <p>expandedMenu</p>  
+          <ul>
+            <li>q</li>
+            <li>q</li>
+            <li>q</li>
+            <li>q</li>
+            <li>q</li>
+            <li>q</li>
+            <li>q</li>
+            <li>q</li>
+            <li>q</li>
+            <li>q</li>
+          </ul>  
         </Menu>
-        :null
      );
 }

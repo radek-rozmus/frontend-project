@@ -46,6 +46,7 @@ const UserName = styled.div`
   width: ${LeftBarDimensions.userTileDimensions};
   height: 24px;
   padding-top: 6px;
+  color: ${Colors.blue};
 `;
 
 const UserJobTitle = styled.div`
@@ -56,23 +57,18 @@ const UserJobTitle = styled.div`
   height: 28px;
   padding-top: 2px;
   ${border(1, "solid", Colors.lightgray, "bottom")}
+  color: ${Colors.gray};
 `;
 
-const UserMenu = styled.ul`
-  width: ${LeftBarDimensions.userTileDimensions};
-  height: 70px;
-  position: absolute;
-  top: 164px;
-`;
 const UserMenuItem = styled.li`
   cursor: pointer;
-  height: 48px;
+  height: 40px;
   width: ${LeftBarDimensions.userTileDimensions};
 `;
 const UserMenuItemIcon = styled.img`
   position: absolute;
   left: 32px;
-  padding-top: 4px;
+  padding-top: 20px;
 `;
 const UserMenuItemIconAdd = styled.img`
   position: absolute;
@@ -81,6 +77,29 @@ const UserMenuItemIconAdd = styled.img`
   ${border(1, "solid", Colors.fontblue)}
   border-radius: 3px;
 `;
+const UserItemTitle = styled.div`
+  position: relative;
+  top: 20px;
+`;
+const UserMenu = styled.ul`
+  width: ${LeftBarDimensions.userTileDimensions};
+  height: 70px;
+  position: absolute;
+  top: 164px;
+
+  & ${UserMenuItem}:nth-child(1) > ${UserMenuItemIcon}{
+    padding-top: 16px;
+  }
+  & ${UserMenuItem}:nth-child(1){
+    padding-top: 4px;
+  }
+  & ${UserMenuItem}:nth-child(2){
+    position: relative;
+    bottom: 2px;
+    padding-bottom: 4px;
+  }
+`;
+
 
 export interface LeftMenuProps {
   user: User;
@@ -96,12 +115,12 @@ export const LeftBar: FC<LeftMenuProps> = (props) => {
         <UserMenu>
           <UserMenuItem>
             <UserMenuItemIcon src={"./media/icons/network.png"} />
-            Your network
+            <UserItemTitle>Your network</UserItemTitle>
             <UserMenuItemIconAdd src={"./media/icons/user-plus.png"} />
           </UserMenuItem>
           <UserMenuItem>
             <UserMenuItemIcon src={"./media/icons/publications.png"} />
-            Your publications
+            <UserItemTitle>Your publications</UserItemTitle>
             <UserMenuItemIconAdd src={"./media/icons/plus.png"} />
           </UserMenuItem>
         </UserMenu>

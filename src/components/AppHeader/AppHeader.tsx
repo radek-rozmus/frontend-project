@@ -5,12 +5,14 @@ import { Wrapper, inputBorder, border, boxShadow } from "../../styledHelpers/Com
 
 import { Colors } from "../../styledHelpers/Colors";
 import { ExpandedMenu } from "./ExpandedMenu";
+import useDropdown from "react-dropdown-hook";
 
 //topbar style variables
 
 export const barHeight = `60px`;
 export const viewportEmptySpace = `20px`;
 export const rightIconsPanelWidth = `140px`;
+export const inputWrapperWidth = `1000px`;
 
 //-----------------------
 
@@ -44,7 +46,7 @@ const InputWrapper = styled.div`
   position: absolute;
   right: calc(${viewportEmptySpace} * 2 + ${rightIconsPanelWidth});
   top: 12px;
-  width: 60%;
+  width: ${inputWrapperWidth};
 `;
 
 const SearchImg = styled.img`
@@ -75,12 +77,47 @@ const CustomInput = styled.input`
   ${inputBorder()};
 `;
 
+const ExpandedMenuWrapper = styled.div`
+  position: absolute;
+  left: 100px;
+  top: 12px;
+`;
+const ExpandedMenuButton = styled.div`
+cursor: pointer;
+width: 200px;
+
+& ${CustomImg}:nth-child(1){
+  position: relative;
+  top: 4px;
+  padding-right: 10px;
+}
+& ${CustomImg}:nth-child(3){
+  position: absolute;
+  right: 0;
+  top: 12px;
+}
+`;
+
 export const AppHeader: FC = () => {
+
+  const [dropdownWrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
+
+  const menuHandle = () => {
+    toggleDropdown();
+  };
+
   return (
     <TopBarWrapper>
       <InnerWrapper>
         <AppLogo src="./media/logo-min.png" />
-        <ExpandedMenu />
+        <ExpandedMenuWrapper ref={dropdownWrapperRef}>
+          <ExpandedMenuButton onClick = {menuHandle}>
+            <CustomImg src="./media/icons/house.png"/>
+            <span>Home</span>
+            <CustomImg src="./media/icons/arrow-down.png"/>
+          </ExpandedMenuButton>
+          {dropdownOpen && <ExpandedMenu/>}
+        </ExpandedMenuWrapper>
         <InputWrapper>
           <CustomInput type="text" placeholder="Search"/>
           <SearchImg src="./media/icons/search.png" />
