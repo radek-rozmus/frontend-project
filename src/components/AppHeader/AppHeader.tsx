@@ -6,21 +6,16 @@ import { Wrapper, inputBorder, border, boxShadow } from "../../styledHelpers/Com
 import { Colors } from "../../styledHelpers/Colors";
 import { ExpandedMenu } from "./ExpandedMenu";
 import useDropdown from "react-dropdown-hook";
+import { fontSize } from "../../styledHelpers/FontSizes";
+import { ExpandedMenuDimensions, AppHeaderDimensions } from "../../styledHelpers/commonVariables";
 
-//topbar style variables
-
-export const barHeight = `60px`;
-export const viewportEmptySpace = `20px`;
-export const rightIconsPanelWidth = `140px`;
-export const inputWrapperWidth = `1000px`;
-
-//-----------------------
+import { User } from "../../types/User";
 
 const TopBarWrapper = styled(Wrapper)`
   position: absolute;
   left: 0;
   top: 0;
-  height: ${barHeight}; //set height to 50px
+  height: ${AppHeaderDimensions.barHeight}; //set height to 50px
   width: 100%;
   ${boxShadow(0, 0, 13, -3)}
 `;
@@ -34,19 +29,19 @@ const InnerWrapper = styled.div`
 `;
 
 const RightIconsPanel = styled.div`
-  top: ${viewportEmptySpace};
-  width: ${rightIconsPanelWidth};
+  top: ${AppHeaderDimensions.viewportEmptySpace};
+  width: ${AppHeaderDimensions.rightIconsPanelWidth};
   text-align: center;
   position: absolute;
-  right: ${viewportEmptySpace};
+  right: ${AppHeaderDimensions.viewportEmptySpace};
   display: inline-block;
 `;
 
 const InputWrapper = styled.div`
   position: absolute;
-  right: calc(${viewportEmptySpace} * 2 + ${rightIconsPanelWidth});
+  right: calc(${AppHeaderDimensions.viewportEmptySpace} * 2 + ${AppHeaderDimensions.rightIconsPanelWidth});
   top: 12px;
-  width: ${inputWrapperWidth};
+  width: ${AppHeaderDimensions.inputWrapperWidth};
 `;
 
 const SearchImg = styled.img`
@@ -62,14 +57,17 @@ export const CustomImg = styled.img`
 
 const AppLogo = styled.img`
   position: absolute;
-  left: ${viewportEmptySpace};
+  left: ${AppHeaderDimensions.viewportEmptySpace};
   top: 5px;
   overflow: hidden;
 `;
 
-const CustomInput = styled.input`
+export const CustomInput = styled.input`
+  font-size: ${fontSize[14]};
+  color: ${Colors.fontblue};
   background: ${Colors.white};
-  height: 32px;
+  height: 28px;
+  padding-top: 4px;
   position: relative;
   text-align: center;
   width: 60%;
@@ -80,7 +78,8 @@ const CustomInput = styled.input`
 const ExpandedMenuWrapper = styled.div`
   position: absolute;
   left: 100px;
-  top: 12px;
+  top: ${ExpandedMenuDimensions.topSpace};
+  padding-top: 6px;
 `;
 const ExpandedMenuButton = styled.div`
 cursor: pointer;
@@ -94,11 +93,15 @@ width: 200px;
 & ${CustomImg}:nth-child(3){
   position: absolute;
   right: 0;
-  top: 12px;
+  top: 16px;
 }
 `;
 
-export const AppHeader: FC = () => {
+export interface AppHeaderProps {
+  user: User;
+};  
+
+export const AppHeader: FC<AppHeaderProps> = (props) => {
 
   const [dropdownWrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
 
@@ -110,13 +113,13 @@ export const AppHeader: FC = () => {
     <TopBarWrapper>
       <InnerWrapper>
         <AppLogo src="./media/logo-min.png" />
-        <ExpandedMenuWrapper ref={dropdownWrapperRef}>
+        <ExpandedMenuWrapper ref={dropdownWrapperRef} >
           <ExpandedMenuButton onClick = {menuHandle}>
             <CustomImg src="./media/icons/house.png"/>
             <span>Home</span>
             <CustomImg src="./media/icons/arrow-down.png"/>
           </ExpandedMenuButton>
-          {dropdownOpen && <ExpandedMenu/>}
+          {dropdownOpen && <ExpandedMenu user = {props.user}/>}
         </ExpandedMenuWrapper>
         <InputWrapper>
           <CustomInput type="text" placeholder="Search"/>

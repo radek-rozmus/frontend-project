@@ -20,7 +20,7 @@ export const border = (
   width: number,
   style: string,
   color: string,
-  which?: string,
+  which?: string
 ): Styles => {
   switch (which) {
     case "bottom":
@@ -57,3 +57,11 @@ export const boxShadow = (a: number, b: number, c: number, d: number) => {
 export const inputBorder = (): Styles[] => {
   return [{ border: `2px solid ${Colors.lightgray}` }, { borderRadius: `3px` }];
 };
+
+/*
+export const cannotSelect = () => {
+  return {
+    userSelect: `none`,
+  };
+};
+  */

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Wrapper, boxShadow, border } from "../../styledHelpers/Components";
 import { Colors } from "../../styledHelpers/Colors";
 import { fontSize } from "../../styledHelpers/FontSizes";
-import { User } from "../App/App";
+import { User } from "../../types/User";
 import { LeftMenu } from "./LeftMenu";
 import { LeftBarDimensions } from "../../styledHelpers/commonVariables";
 
@@ -12,7 +12,7 @@ const LeftBarWrapper = styled(Wrapper)`
   left: 0;
   top: 0;
   position: relative;
-  width: calc(${LeftBarDimensions.userTileDimensions} + 40px);
+  width: ${LeftBarDimensions.leftBarWidth};
   height: 100%;
   display: block;
   font-size: ${fontSize[16]};
@@ -21,8 +21,8 @@ const LeftBarWrapper = styled(Wrapper)`
 const UserTile = styled.div`
   text-align: center;
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: ${LeftBarDimensions.userTileMargins};
+  left: ${LeftBarDimensions.userTileMargins};
   width: ${LeftBarDimensions.userTileDimensions};
   height: ${LeftBarDimensions.userTileDimensions};
   background-color: ${Colors.white};
