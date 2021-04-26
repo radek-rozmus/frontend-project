@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Wrapper, boxShadow, border } from "../../styledHelpers/Components";
@@ -30,6 +31,10 @@ const UserTile = styled.div`
   display: block;
   font-size: ${fontSize[14]};
 `;
+const UserLink = styled(Link)`
+  text-decoration: none;
+  display: block;
+`;
 
 const UserImg = styled.img`
   border-radius: 200px;
@@ -60,7 +65,10 @@ const UserJobTitle = styled.div`
   color: ${Colors.gray};
 `;
 
-const UserMenuItem = styled.li`
+const UserMenuItem = styled(Link)`
+  text-decoration: none;
+  display: block;
+  color: ${Colors.fontblue};
   cursor: pointer;
   height: 40px;
   width: ${LeftBarDimensions.userTileDimensions};
@@ -87,19 +95,18 @@ const UserMenu = styled.ul`
   position: absolute;
   top: 164px;
 
-  & ${UserMenuItem}:nth-child(1) > ${UserMenuItemIcon}{
+  & ${UserMenuItem}:nth-child(1) > ${UserMenuItemIcon} {
     padding-top: 16px;
   }
-  & ${UserMenuItem}:nth-child(1){
+  & ${UserMenuItem}:nth-child(1) {
     padding-top: 4px;
   }
-  & ${UserMenuItem}:nth-child(2){
+  & ${UserMenuItem}:nth-child(2) {
     position: relative;
     bottom: 2px;
     padding-bottom: 4px;
   }
 `;
-
 
 export interface LeftMenuProps {
   user: User;
@@ -109,16 +116,18 @@ export const LeftBar: FC<LeftMenuProps> = (props) => {
   return (
     <LeftBarWrapper>
       <UserTile>
-        <UserImg src={"./media/user-photo.jpg"} />
-        <UserName>{props.user.name}</UserName>
-        <UserJobTitle>Developer - {props.user.company}</UserJobTitle>
+        <UserLink to="/profile">
+          <UserImg src={"./media/user-photo.jpg"} />
+          <UserName>{props.user.name}</UserName>
+          <UserJobTitle>Developer - {props.user.company}</UserJobTitle>
+        </UserLink>
         <UserMenu>
-          <UserMenuItem>
+          <UserMenuItem to = "/your-network">
             <UserMenuItemIcon src={"./media/icons/network.png"} />
             <UserItemTitle>Your network</UserItemTitle>
             <UserMenuItemIconAdd src={"./media/icons/user-plus.png"} />
           </UserMenuItem>
-          <UserMenuItem>
+          <UserMenuItem to = "/your-publications">
             <UserMenuItemIcon src={"./media/icons/publications.png"} />
             <UserItemTitle>Your publications</UserItemTitle>
             <UserMenuItemIconAdd src={"./media/icons/plus.png"} />

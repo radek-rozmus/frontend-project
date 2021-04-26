@@ -1,10 +1,12 @@
 import { css } from 'styled-components';
 
 export const sizes = {
+    giantXlAppUsage: 1500,
     giantXl: 1440,
     giant: 1366,
     desktop: 1024,
     desktopLegacy: 1240,
+    bigTablet: 910,
     tablet: 768,
     tabletLegacy: 801, 
     tabletSm: 480,

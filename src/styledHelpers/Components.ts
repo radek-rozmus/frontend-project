@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Colors } from "./Colors";
+import { LeftBarDimensions } from "./commonVariables";
 
 export type Styles = {
   [ruleOrSelector: string]: string | number | Styles;
@@ -8,6 +9,11 @@ export type Styles = {
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const Page = styled.div`
+  position: absolute;
+  width: calc(100vw - ${LeftBarDimensions.leftBarWidth} - ${LeftBarDimensions.userTileMargins});
 `;
 
 export const color2 = (): Styles => {

@@ -1,6 +1,8 @@
-import { FC } from "React";
+import { ChangeEvent, FC, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
+import { ExpandedMenuItem } from "./ExpandedMenuItem";
+import { ExpandedMenuAccountTile } from "./ExpandedMenuAccountTile";
 
 import { border, inputBorder } from "../../styledHelpers/Components";
 import { Colors } from "../../styledHelpers/Colors";
@@ -36,33 +38,6 @@ const ListTitle = styled.div`
   font-size: ${fontSize[14]};
   padding-top: 10px;
 `;
-const ListItem = styled.li`
-  height: 36px;
-  width: 100%;
-  font-size: ${fontSize[14]};
-  & a {
-    text-decoration: none;
-    color: ${Colors.fontblue};
-  }
-`;
-
-const MenuImgWrapper = styled.div`
-  position: absolute;
-  left: 10px;
-  width: 40px;
-  height: 32px;
-`;
-
-const MenuImg = styled.img`
-  position: relative;
-  top: 4px;
-`;
-
-const MenuImgDescription = styled.div`
-  position: relative;
-  left: 40px;
-  top: 10px;
-`;
 
 const Menu = styled.div`
   position: absolute;
@@ -77,204 +52,131 @@ const Menu = styled.div`
   -moz-user-select: none; /* Old versions of Firefox */
   user-select: none;
 `;
-const AccountTile = styled.div`
-  width: 200px;
-  height: 160px;
-  ${border(1, "solid", Colors.lightgray, "top")};
-`;
-const AccountTileTitle = styled.div`
-  color: ${Colors.gray};
-  position: relative;
-  padding-top: 10px;
-  height: 10px;
-  width: 80px;
-  font-size: ${fontSize[14]};
-`;
-const AccountTileMain = styled.div`
-  color: ${Colors.fontblue};
-  position: relative;
-  left: 0;
-  height: 66px;
-  font-size: ${fontSize[14]};
-  a {
-    display: block;
-    color: ${Colors.fontblue};
-  }
-`;
-const AccountTileMenuItem = styled.div`
-  cursor: pointer;
-  height: 32px;
-  padding-top: 4px;
-  width: 100%;
-  font-size: ${fontSize[14]};
-`;
-const LogoutButton = styled.button`
-  width: 200px;
-  background: white;
-  border: none;
-  outline: none;
-  ${border(1, "solid", Colors.lightgray, "top")};
-  font-size: ${fontSize[18]};
-  color: ${Colors.gray};
-  padding: 8px 0;
-  cursor: pointer;
-`;
-const LogoutDescription = styled.div`
-  position: relative;
-  top: 3px;
-  padding-left: 12px;
-  display: inline-block;
-`;
 
-const UserImg = styled.img`
-  border-radius: 200px;
-  width: 40px;
-  height: 40px;
-  position: relative;
-  top: 16px;
-`;
-const UserName = styled.div`
-  padding-top: 4px;
-  height: 16px;
-  position: absolute;
-  width: 140px;
-  height: 20px;
-  left: 50px;
-  top: 16px;
-`;
-const SeeProfile = styled.div`
-  padding-top: 4px;
-  height: 16px;
-  position: absolute;
-  width: 100px;
-  height: 20px;
-  left: 50px;
-  top: 36px;
-  font-size: ${fontSize[12]};
-  color: ${Colors.blue};
-`;
+export const commonMenuElements = {
+  MenuImgWrapper: styled.div`
+    position: absolute;
+    left: 10px;
+    width: 40px;
+    height: 32px;
+  `,
+  MenuImg: styled.img`
+    position: relative;
+    top: 4px;
+  `,
+  MenuImgDescription: styled.div`
+    position: relative;
+    left: 40px;
+    top: 10px;
+  `,
+};
 
 export interface ExpandedMenuProps {
   user: User;
-};  
+}
 
 export const ExpandedMenu: FC<ExpandedMenuProps> = (props) => {
+  const [filterInputText, setFilterInputText] = useState("");
+  const handleFilterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilterInputText(e.target.value);
+  };
+
   return (
     <Menu>
-      <FilterInput placeholder="Filter..." />
+      <FilterInput
+        placeholder="Filter..."
+        value={filterInputText}
+        onChange={handleFilterInputChange}
+      />
       <List>
         <ListTitle>Platform</ListTitle>
-        <ListItem>
-          <Link to="/home">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/house.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Home</MenuImgDescription>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to="/publications">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/publications.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Publications</MenuImgDescription>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to="/people">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/people.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>People</MenuImgDescription>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to="/entities">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/entities2.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Entities</MenuImgDescription>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to="/administrations">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/administration.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Administrations</MenuImgDescription>
-          </Link>
-        </ListItem>
+        {("Home".toLowerCase().includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/home"
+            iconSrc="./media/icons/house.png"
+            text="Home"
+          />
+        ))}
+        {"Publications"
+          .toLowerCase()
+          .includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/publications"
+            iconSrc="./media/icons/publications.png"
+            text="Publications"
+          />
+        )}
+        {"People".toLowerCase().includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/people"
+            iconSrc="./media/icons/people.png"
+            text="People"
+          />
+        )}
+        {"Entities".toLowerCase().includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/entities"
+            iconSrc="./media/icons/entities2.png"
+            text="Entities"
+          />
+        )}
+        {"Administrations"
+          .toLowerCase()
+          .includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/administrations"
+            iconSrc="./media/icons/administration.png"
+            text="Administrations"
+          />
+        )}
       </List>
       <List>
         <ListTitle>Workspaces</ListTitle>
-        <ListItem>
-          <Link to="/client-contract">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/comments.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Client contract</MenuImgDescription>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to="/supplier-contract">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/comments.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Supplier contract</MenuImgDescription>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to="/corporate">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/house.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Corporate</MenuImgDescription>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to="/group-norms">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/entities.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Group Norms</MenuImgDescription>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link to="/real-contracts">
-            <MenuImgWrapper>
-              <MenuImg src="./media/icons/comments.png" />
-            </MenuImgWrapper>
-            <MenuImgDescription>Real estate contracts</MenuImgDescription>
-          </Link>
-        </ListItem>
+        {"Client contract"
+          .toLowerCase()
+          .includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/client-contract"
+            iconSrc="./media/icons/comments.png"
+            text="Client contract"
+          />
+        )}
+        {"Supplier contract"
+          .toLowerCase()
+          .includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/supplier-contract"
+            iconSrc="./media/icons/comments.png"
+            text="Supplier contract"
+          />
+        )}
+        {"Corporate".toLowerCase().includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/corporate"
+            iconSrc="./media/icons/house.png"
+            text="Corporate"
+          />
+        )}
+        {"Group Norms"
+          .toLowerCase()
+          .includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/group-norms"
+            iconSrc="./media/icons/entities.png"
+            text="Group Norms"
+          />
+        )}
+        {"Real estate contracts"
+          .toLowerCase()
+          .includes(filterInputText.toLowerCase()) && (
+          <ExpandedMenuItem
+            to="/real-contracts"
+            iconSrc="./media/icons/comments.png"
+            text="Real estate contracts"
+          />
+        )}
       </List>
-      <AccountTile>
-        <AccountTileTitle>Account</AccountTileTitle>
-
-        <Link to="/profile">
-          <AccountTileMain>
-            <UserImg src={"./media/user-photo.jpg"} />
-            <UserName>{props.user.name}</UserName>
-            <SeeProfile>See Profile</SeeProfile>
-          </AccountTileMain>
-        </Link>
-        <AccountTileMenuItem>
-          <MenuImgWrapper>
-            <MenuImg src="./media/icons/privacy.png" />
-          </MenuImgWrapper>
-          <MenuImgDescription>Privacy</MenuImgDescription>
-        </AccountTileMenuItem>
-        <AccountTileMenuItem>
-          <MenuImgWrapper>
-            <MenuImg src="./media/icons/settings.png" />
-          </MenuImgWrapper>
-          <MenuImgDescription>Settings</MenuImgDescription>
-        </AccountTileMenuItem>
-      </AccountTile>
-      <LogoutButton>
-        <MenuImg src="./media/icons/logout.png" />
-        <LogoutDescription>Logout</LogoutDescription>
-      </LogoutButton>
+      <ExpandedMenuAccountTile user={props.user} />
     </Menu>
   );
 };

@@ -1,9 +1,14 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { LeftBarDimensions } from "../../styledHelpers/commonVariables";
+import { Colors } from "../../styledHelpers/Colors";
 
-export const MenuItem = styled.li`
+export const MenuItem = styled(Link)`
+  text-decoration: none;
+  display: block;
+  color: ${Colors.fontblue};
   position: relative;
   width: ${LeftBarDimensions.userTileDimensions};
   height: 40px;
@@ -28,7 +33,10 @@ export const MenuItemTitle = styled.div`
 
 export const MenuList = styled.ul`
   position: absolute;
-  top: calc(${LeftBarDimensions.userTileDimensions} + ${LeftBarDimensions.userTileSpaces}*2 + 6px);
+  top: calc(
+    ${LeftBarDimensions.userTileDimensions} +
+      ${LeftBarDimensions.userTileSpaces}*2 + 6px
+  );
   left: 20px;
 
   & ${MenuItem}:nth-child(1) > ${MenuItemIconLayout} > ${MenuItemIcon} {
@@ -40,10 +48,10 @@ export const MenuList = styled.ul`
   & ${MenuItem}:nth-child(1) > ${MenuItemIconLayout} > ${MenuItemIcon} {
     left: 14px;
   }
-  & ${MenuItem}:nth-child(2) > ${MenuItemTitle}{
+  & ${MenuItem}:nth-child(2) > ${MenuItemTitle} {
     top: 11px;
   }
-  & ${MenuItem}:nth-child(3) > ${MenuItemTitle}{
+  & ${MenuItem}:nth-child(3) > ${MenuItemTitle} {
     top: 15px;
   }
 `;
@@ -51,19 +59,19 @@ export const MenuList = styled.ul`
 export const LeftMenu: FC = () => {
   return (
     <MenuList>
-      <MenuItem>
+      <MenuItem to = "/publications">
         <MenuItemIconLayout>
           <MenuItemIcon src="./media/icons/publications.png" />
         </MenuItemIconLayout>
         <MenuItemTitle>Publications</MenuItemTitle>
       </MenuItem>
-      <MenuItem>
+      <MenuItem to = "/ecosystem">
         <MenuItemIconLayout>
           <MenuItemIcon src="./media/icons/ecosystem.png" />
         </MenuItemIconLayout>
         <MenuItemTitle>Ecosystem</MenuItemTitle>
       </MenuItem>
-      <MenuItem>
+      <MenuItem to = "/entities">
         <MenuItemIconLayout>
           <MenuItemIcon src="./media/icons/entities.png" />
         </MenuItemIconLayout>
