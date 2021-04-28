@@ -1,17 +1,17 @@
 import {FC} from 'react';
 import styled from "styled-components";
-import {Page} from '../../styledHelpers/Components';
+import {Page} from '../../../styledHelpers/Components';
+import {LatestPublications} from './innerComponents/LatestPublications';
  
 
 const PageInnerWrapper = styled(Page)`
-background-color:red;
 `;
 
 export const HomePage: FC= () => {
     return ( 
 
         <PageInnerWrapper>
-            Home
+            <LatestPublications/>
         </PageInnerWrapper>
      );
 }

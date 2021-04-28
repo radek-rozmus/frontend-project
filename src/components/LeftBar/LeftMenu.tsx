@@ -33,9 +33,7 @@ export const MenuItemTitle = styled.div`
 
 export const MenuList = styled.ul`
   position: absolute;
-  top: calc(
-    ${LeftBarDimensions.userTileDimensions} +
-      ${LeftBarDimensions.userTileSpaces}*2 + 6px
+  top: calc(${LeftBarDimensions.userTileDimensions} + ${LeftBarDimensions.userTileSpaces}*2 + 6px
   );
   left: 20px;
 
@@ -59,19 +57,19 @@ export const MenuList = styled.ul`
 export const LeftMenu: FC = () => {
   return (
     <MenuList>
-      <MenuItem to = "/publications">
+      <MenuItem to="/publications">
         <MenuItemIconLayout>
           <MenuItemIcon src="./media/icons/publications.png" />
         </MenuItemIconLayout>
         <MenuItemTitle>Publications</MenuItemTitle>
       </MenuItem>
-      <MenuItem to = "/ecosystem">
+      <MenuItem to="/ecosystem">
         <MenuItemIconLayout>
           <MenuItemIcon src="./media/icons/ecosystem.png" />
         </MenuItemIconLayout>
         <MenuItemTitle>Ecosystem</MenuItemTitle>
       </MenuItem>
-      <MenuItem to = "/entities">
+      <MenuItem to="/entities">
         <MenuItemIconLayout>
           <MenuItemIcon src="./media/icons/entities.png" />
         </MenuItemIconLayout>

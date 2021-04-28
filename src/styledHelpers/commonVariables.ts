@@ -16,3 +16,9 @@ export const ExpandedMenuDimensions = {
     topSpace: `11px`
 };
 
+export const LatestPublicationsDimensions = {
+  pictureWidth: `400px`,
+  componentHeight: `400px`,
+  publicationImageDimensions: `90px`,
+};
+
