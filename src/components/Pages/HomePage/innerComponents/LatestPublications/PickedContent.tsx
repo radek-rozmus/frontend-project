@@ -1,10 +1,10 @@
 import { FC} from "react";
 import styled from "styled-components";
-import { Colors } from "../../../../styledHelpers/Colors";
+import { Colors } from "../../../../../styledHelpers/Colors";
 
-import { Wrapper } from "../../../../styledHelpers/Components";
-import { fontSize } from "../../../../styledHelpers/FontSizes";
-import { User } from "../../../../types/User";
+import { Wrapper } from "../../../../../styledHelpers/Components";
+import { fontSize } from "../../../../../styledHelpers/FontSizes";
+import { User } from "../../../../../types/User";
 
 const PickedContentInnerWrapper = styled(Wrapper)`
   position: absolute;
@@ -12,7 +12,7 @@ const PickedContentInnerWrapper = styled(Wrapper)`
   left: 0;
   width: 400px;
   height: 400px;
-  background: linear-gradient(to top, #142652, rgba(0, 0, 0, 0));
+  background: linear-gradient(to top, rgba(20, 38, 82), rgba(0, 0, 0, 0));
   justify-content: left;
   text-align: left;
 `;
@@ -60,12 +60,14 @@ const DateOfPublication = styled.div`
   position: relative;
   display: inline-block;
   bottom: 10px;
+  font-weight: 400;
 `;
 const NameOfAuthor = styled.div`
   position: relative;
   display: inline-block;
   bottom: 10px;
   left: 24px;
+  font-weight: 400;
 `;
 
 export interface PickedContentProps {

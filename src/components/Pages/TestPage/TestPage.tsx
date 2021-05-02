@@ -1,9 +1,9 @@
 import {FC} from 'react';
 import styled from "styled-components";
-import {Page} from '../../styledHelpers/Components';
+import {Page} from '../../../styledHelpers/Components';
 
-import {Colors} from '../../styledHelpers/Colors';
-import {fontSize} from '../../styledHelpers/FontSizes';
+import {Colors} from '../../../styledHelpers/Colors';
+import {fontSize} from '../../../styledHelpers/FontSizes';
  
 
 const PageInnerWrapper = styled(Page)`

@@ -63,6 +63,7 @@ const UserJobTitle = styled.div`
   padding-top: 2px;
   ${border(1, "solid", Colors.lightgray, "bottom")}
   color: ${Colors.gray};
+  font-weight: 400;
 `;
 
 const UserMenuItem = styled(Link)`

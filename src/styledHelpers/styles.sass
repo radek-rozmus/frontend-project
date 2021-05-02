@@ -1,0 +1,17 @@
+$arrowUp: url('../scrollbar/scrollbar-arrow-up.png')
+$arrowDown: url('../scrollbar/scrollbar-arrow-down.png')
+    
+body
+    background-color: #f5f7f9
+    overflow-x: hidden
+body::-webkit-scrollbar
+    width: 13px
+body::-webkit-scrollbar-track
+    background-color: #f5f7f9
+body::-webkit-scrollbar-thumb
+    background-color: #898d92
+    border-radius: 5px
+body::-webkit-scrollbar-button:vertical:decrement
+    background: #f5f7f9 $arrowUp 0 2px no-repeat
+body::-webkit-scrollbar-button:vertical:increment
+    background: #f5f7f9 $arrowDown 0 2px no-repeat

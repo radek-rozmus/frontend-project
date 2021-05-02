@@ -4,7 +4,6 @@ export const LeftBarDimensions = {
   userTileSpaces: `20px`,
   userTileMargins: `20px`,
   leftMenuIconWidth: `52px`,
-
 };
 export const AppHeaderDimensions = {
   barHeight: `60px`,
@@ -21,4 +20,13 @@ export const LatestPublicationsDimensions = {
   componentHeight: `400px`,
   publicationImageDimensions: `90px`,
 };
+export const CarouselDimensions = {
+  carouselHeight: `300px`,
+  carouselTopSpace: `20px`,
+};
+
+export const ResumeWorkDimensions = {
+  resumeWorkMargins: `20px`,
+};
+
 

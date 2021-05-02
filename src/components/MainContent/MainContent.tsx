@@ -4,12 +4,11 @@ import styled from "styled-components";
 import { LeftBarDimensions } from "../../styledHelpers/commonVariables";
 
 import { HomePage } from "../Pages/HomePage/HomePage";
-import { ProfilePage } from "../Pages/ProfilePage";
-import { TestPage } from "../Pages/TestPage";
-import { EntitiesPage } from "../Pages/EntitiesPage";
+import { ProfilePage } from "../Pages/ProfilePage/ProfilePage";
+import { TestPage } from "../Pages/TestPage/TestPage";
+import { EntitiesPage } from "../Pages/EntitiesPage/EntitiesPage";
 
 const PageWrapper = styled.div`
-  background-color: red;
   position: absolute;
   left: ${LeftBarDimensions.leftBarWidth};
   top: ${LeftBarDimensions.userTileMargins};

@@ -12,7 +12,6 @@ import { User } from '../../types/User';
 
 const MainPageWrapper = styled(Wrapper)`
 z-index: -1;
-background-color: #f5f7f9;
 position: absolute;
 justify-content: left;
 left: 0;

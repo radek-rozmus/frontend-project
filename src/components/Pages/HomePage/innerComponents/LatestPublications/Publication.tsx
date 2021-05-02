@@ -1,11 +1,11 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { Colors } from "../../../../styledHelpers/Colors";
+import { Colors } from "../../../../../styledHelpers/Colors";
 
-import { Wrapper } from "../../../../styledHelpers/Components";
-import { fontSize } from "../../../../styledHelpers/FontSizes";
-import { User } from "../../../../types/User";
-import { LatestPublicationsDimensions } from "../../../../styledHelpers/commonVariables";
+import { Wrapper } from "../../../../../styledHelpers/Components";
+import { fontSize } from "../../../../../styledHelpers/FontSizes";
+import { User } from "../../../../../types/User";
+import { LatestPublicationsDimensions } from "../../../../../styledHelpers/commonVariables";
 
 export interface PublicationProps {
   date: Date;
@@ -68,12 +68,14 @@ const DateOfPublication = styled.div`
   position: relative;
   display: inline-block;
   bottom: 10px;
+  font-weight: 400;
 `;
 const NameOfAuthor = styled.div`
   position: relative;
   display: inline-block;
   bottom: 10px;
   left: 24px;
+  font-weight: 400;
 `;
 
 export const Publication: FC<PublicationProps> = (props) => {

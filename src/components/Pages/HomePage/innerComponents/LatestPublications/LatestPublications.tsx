@@ -1,15 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Colors } from "../../../../styledHelpers/Colors";
+import { Colors } from "../../../../../styledHelpers/Colors";
 
-import { Wrapper, boxShadow } from "../../../../styledHelpers/Components";
-import { fontSize } from "../../../../styledHelpers/FontSizes";
+import { Wrapper, boxShadow } from "../../../../../styledHelpers/Components";
+import { fontSize } from "../../../../../styledHelpers/FontSizes";
 import { Publication } from "./Publication";
 import { PickedContent } from "./PickedContent";
-import { User } from "../../../../types/User";
-
-export interface LatestPublicationsProps {}
+import { User } from "../../../../../types/User";
 
 const LatestPublicationsWrapper = styled(Wrapper)`
   height: 400px;
@@ -58,7 +56,7 @@ const MorePublicationsLink = styled(Link)`
   font-size: ${fontSize[16]};
 `;
 
-export const LatestPublications: FC<LatestPublicationsProps> = () => {
+export const LatestPublications: FC = () => {
   const [user, setUser] = useState({} as User);
 
   const publicationDate = new Date(2010, 11, 17);
