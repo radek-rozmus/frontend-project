@@ -1,4 +1,6 @@
 import { Component } from "react";
+import { Provider } from "react-redux";
+import {store} from "../../store/store";
 import styled from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 
@@ -12,7 +14,6 @@ const Layout = styled.div`
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   color: ${Colors.fontblue};
-  
 `;
 
 class App extends Component {
@@ -32,12 +33,14 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Layout>
-          <AppHeader user={this.state.usr as User}/>
-          <AppMain user={this.state.usr as User} />
-        </Layout>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Layout>
+            <AppHeader user={this.state.usr as User} />
+            <AppMain user={this.state.usr as User} />
+          </Layout>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

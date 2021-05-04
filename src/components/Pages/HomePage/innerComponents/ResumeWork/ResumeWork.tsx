@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 
 import { Wrapper } from "../../../../../styledHelpers/Components";
@@ -9,6 +9,7 @@ import { content } from "./content";
 
 import { WorkTile } from "./WorkTile";
 import { PageButtons } from "./PageButtons";
+import { useAppSelector } from "../../../../../hooks/hooks";
 
 const ResumeWorkWrapper = styled(Wrapper)`
   position: absolute;
@@ -22,7 +23,7 @@ const ResumeWorkWrapper = styled(Wrapper)`
 
 const ResumeWorkTitle = styled(Wrapper)`
   position: absolute;
-  top: ${ResumeWorkDimensions.resumeWorkMargins};
+  top: ${ResumeWorkDimensions};
   left: 16px;
   height: 20px;
   font-size: ${fontSize[20]};
@@ -37,16 +38,16 @@ const ResumeWorkContent = styled.div`
 `;
 
 export const ResumeWork: FC = () => {
-  const [subPage, setSubPage] = useState(4);
+  const page = useAppSelector((state) => state.resumeWork.page);
   return (
     <ResumeWorkWrapper>
       <ResumeWorkTitle>Resume your work</ResumeWorkTitle>
       <ResumeWorkContent>
         {content
           .filter((item) => {
-            if (item.id <= subPage * 10 && item.id >= (subPage - 1) * 10 + 1)
+            if (item.id <= page * 10 && item.id >= (page - 1) * 10 + 1)
               return item;
-          return null;
+            return null;
           })
           .map((item) => {
             return (
@@ -54,7 +55,7 @@ export const ResumeWork: FC = () => {
             );
           })}
       </ResumeWorkContent>
-      <PageButtons page={subPage} change={setSubPage}/>
+      <PageButtons page={page} />
     </ResumeWorkWrapper>
   );
 };

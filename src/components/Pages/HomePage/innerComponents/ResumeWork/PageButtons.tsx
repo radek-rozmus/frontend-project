@@ -1,10 +1,12 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import {FC} from "react";
 import styled from "styled-components";
 
 import { Colors } from "../../../../../styledHelpers/Colors";
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
 
 import { content } from "./content";
+import { PageButton } from "./PageButton";
+import { setPage, previousFewPages, nextFewPages } from "../../../../../actions/resumeWorkActions";
 
 const PageButtonsWrapper = styled.div`
   position: relative;
@@ -16,17 +18,6 @@ const PageButtonsWrapper = styled.div`
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Old versions of Firefox */
   user-select: none;
-`;
-const PageButton = styled.button`
-  display: inline-block;
-  height: 100%;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  color: ${Colors.lightblue};
-  font-size: ${fontSize[16]};
-  padding: 0 6px;
-  background-color: ${Colors.backgroundgray};
 `;
 const PageLabel = styled.div`
   display: inline-block;
@@ -42,45 +33,35 @@ const MoreLabel = styled(PageLabel)`
 
 export interface PageButtonsProps {
   page: number;
-  change: Dispatch<SetStateAction<number>>;
 }
 
-export const PageButtons: FC<PageButtonsProps> = (props) => {
+export const PageButtons: FC<PageButtonsProps> = ({page}) => {
   const numberOfPages = Math.ceil(content.length / 10);
 
   return (
     <PageButtonsWrapper>
-      {props.page > 1 && (
-        <PageButton onClick={props.change.bind(this, (prev) => prev - 1)}>
-          PREVIOUS
-        </PageButton>
+      {page > 1 && (
+        <PageButton click={previousFewPages} pages={1} text="PREVIOUS"/>
       )}
-      {props.page > 2 && (
-        <PageButton onClick={props.change.bind(this, 1)}>{1}</PageButton>
+      {page > 2 && (
+        <PageButton click={setPage} pages = {1} text="1"/>
       )}
-      {(props.page - 1) - 1 > 1 && <MoreLabel>...</MoreLabel>}
-      {props.page > 1 && (
-        <PageButton onClick={props.change.bind(this, (prev) => prev - 1)}>
-          {props.page - 1}
-        </PageButton>
+      {(page - 1) - 1 > 1 && <MoreLabel>...</MoreLabel>}
+      {page > 1 && (
+        <PageButton click={previousFewPages} pages={1} text = {`${page - 1}`}/>
       )}
-      {<PageLabel>{props.page}</PageLabel>}
-      {props.page < numberOfPages && (
-        <PageButton onClick={props.change.bind(this, (prev) => prev + 1)}>
-          {props.page + 1}
-        </PageButton>
+      {<PageLabel>{page}</PageLabel>}
+      {page < numberOfPages && (
+        <PageButton click={nextFewPages} pages = {1} text = {`${page + 1}`}/>
       )}
-      {(numberOfPages - props.page) - 1 > 1 && <MoreLabel>...</MoreLabel>}
-      {props.page < numberOfPages - 1 && (
-        <PageButton onClick={props.change.bind(this, numberOfPages)}>
-          {numberOfPages}
-        </PageButton>
+      {(numberOfPages - page) - 1 > 1 && <MoreLabel>...</MoreLabel>}
+      {page < numberOfPages - 1 && (
+        <PageButton click={setPage} pages = {numberOfPages} text = {`${numberOfPages}`}/>
       )}
-      {props.page < numberOfPages && (
-        <PageButton onClick={props.change.bind(this, (prev) => prev + 1)}>
-          NEXT
-        </PageButton>
+      {page < numberOfPages && (
+        <PageButton click={nextFewPages} pages = {1} text = "NEXT"/>
       )}
     </PageButtonsWrapper>
   );
 };
+
