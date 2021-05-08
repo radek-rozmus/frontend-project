@@ -1,6 +1,6 @@
-import { FC } from "React";
+import { FC, useRef } from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
   Wrapper,
@@ -19,7 +19,8 @@ import {
 } from "../../styledHelpers/commonVariables";
 
 import { media } from "../../styledHelpers/Breakpoints";
-import { User } from "../../types/User";
+import { User } from "../../redux/types/User";
+import { cannotSelect } from "../../styledHelpers/Components";
 
 const TopBarWrapper = styled(Wrapper)`
   position: absolute;
@@ -27,7 +28,8 @@ const TopBarWrapper = styled(Wrapper)`
   top: 0;
   height: ${AppHeaderDimensions.barHeight}; //set height to 50px
   width: 100%;
-  ${boxShadow(0, 0, 13, -3)}
+  ${boxShadow(0, 0, 13, -3)};
+  ${cannotSelect()};
 `;
 
 const InnerWrapper = styled.div`
@@ -35,11 +37,11 @@ const InnerWrapper = styled.div`
   height: 100%;
   background: ${Colors.white};
   position: relative;
-  ${border(1, "solid", Colors.lightgray, "bottom")}
+  ${border(1, "solid", Colors.lightgray, "bottom")};
 `;
 
 const RightIconsPanel = styled.div`
-  top: ${AppHeaderDimensions.viewportEmptySpace};
+  top: 4px;
   width: ${AppHeaderDimensions.rightIconsPanelWidth};
   text-align: center;
   position: absolute;
@@ -52,41 +54,19 @@ const InputWrapper = styled.div`
   right: ${AppHeaderDimensions.rightIconsPanelWidth};
   top: 12px;
   width: ${AppHeaderDimensions.inputWrapperWidth};
-  right: 0;
-  width: 600px;
+  text-align: right;
+  width: 480px !important;
 
-  ${media.desktop`
-  right: 0;
-  width: 700px;
-    `};
-
-
-  ${media.giant`
-  right: 0;
-  width: ${AppHeaderDimensions.inputWrapperWidth};
-    `};
-
-  ${media.giant`
-  right: 0;
-  width: ${AppHeaderDimensions.inputWrapperWidth};
-    `};
-
-  ${media.giantXl`
-  right: calc(${AppHeaderDimensions.viewportEmptySpace} * 2);
-  width: ${AppHeaderDimensions.inputWrapperWidth};
-    `};
-
-  ${media.giantXlAppUsage`
-  right: calc(${AppHeaderDimensions.viewportEmptySpace} * 2 + ${AppHeaderDimensions.rightIconsPanelWidth});
-  width: ${AppHeaderDimensions.inputWrapperWidth};
+  ${media.desktopLegacy`
+  width: 600px !important;
     `};
 `;
 
 const SearchImg = styled.img`
-  left: 12px;
-  top: 3px;
-  position: relative;
-  display: inline;
+  right: 16px;
+  top: 10px;
+  position: absolute;
+  display: inline-block;
 `;
 
 export const CustomImg = styled.img`
@@ -108,12 +88,9 @@ export const CustomInput = styled.input`
   padding-top: 4px;
   position: relative;
   text-align: center;
-  width: 64%;
+  width: 100%;
   outline: none;
   ${inputBorder()};
-  ${media.desktop`
-  width: 60%;
-    `};
 `;
 
 const ExpandedMenuWrapper = styled.div`
@@ -138,12 +115,45 @@ const ExpandedMenuButton = styled.div`
   }
 `;
 
+const NotificationBadge = styled.span`
+  top: 0;
+  right: 0;
+  width: 17px;
+  height: 15px;
+  padding-top: 3px;
+  padding-left: 1px;
+  border-radius: 200px;
+  text-align: center;
+  position: absolute;
+  background-color: ${Colors.notificationColor};
+  font-size: ${fontSize[12]};
+  color: ${Colors.white};
+  `;
+  const LinkIconWrap = styled(Link)`
+  position: relative;
+  background-color: ${Colors.backgroundgray};
+  width: 50px;
+  height: 36px;
+  padding-top: 14px;
+  display: inline-block;
+  margin-left: 4px;
+  margin-right: 4px;
+  border-radius: 200px;
+  `;
+
 export interface AppHeaderProps {
   user: User;
 }
 
 export const AppHeader: FC<AppHeaderProps> = (props) => {
   const [dropdownWrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
+  const searchInput = useRef<HTMLInputElement>(null);
+
+  const handleSearchClick = () => {
+    if (searchInput && searchInput.current) {
+      searchInput.current.focus();
+    }
+  };
 
   const menuHandle = () => {
     toggleDropdown();
@@ -162,16 +172,24 @@ export const AppHeader: FC<AppHeaderProps> = (props) => {
           {dropdownOpen && <ExpandedMenu user={props.user} />}
         </ExpandedMenuWrapper>
         <InputWrapper>
-          <CustomInput type="text" placeholder="Search" />
-          <SearchImg src="./media/icons/search.png" />
+          <CustomInput type="text" placeholder="Search" ref={searchInput} />
+          <SearchImg
+            src="./media/icons/search.png"
+            onClick={handleSearchClick}
+          />
         </InputWrapper>
         <RightIconsPanel>
-          <Link to = "/home"><CustomImg src="./media/icons/house.png" /></Link>
-          <Link to = "/comments"><CustomImg src="./media/icons/comments.png" /></Link>
-          <Link to = "/notifications"><CustomImg src="./media/icons/bell.png" /></Link>
-          
-          
-          
+          <LinkIconWrap to="/home">
+            <CustomImg src="./media/icons/house.png" />
+          </LinkIconWrap>
+          <LinkIconWrap to="/comments">
+            <CustomImg src="./media/icons/comments.png" />
+            <NotificationBadge>7</NotificationBadge>
+          </LinkIconWrap>
+          <LinkIconWrap to="/notifications">
+            <CustomImg src="./media/icons/bell.png" />
+            <NotificationBadge>3</NotificationBadge>
+          </LinkIconWrap>
         </RightIconsPanel>
       </InnerWrapper>
     </TopBarWrapper>

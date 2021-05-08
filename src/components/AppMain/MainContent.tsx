@@ -3,10 +3,10 @@ import { Route, Switch } from "react-router";
 import styled from "styled-components";
 import { LeftBarDimensions } from "../../styledHelpers/commonVariables";
 
-import { HomePage } from "../Pages/HomePage/HomePage";
-import { ProfilePage } from "../Pages/ProfilePage/ProfilePage";
-import { TestPage } from "../Pages/TestPage/TestPage";
-import { EntitiesPage } from "../Pages/EntitiesPage/EntitiesPage";
+import { HomePage } from "../MainPages/HomePage/HomePage";
+import { ProfilePage } from "../MainPages/ProfilePage/ProfilePage";
+import { TestPage } from "../MainPages/TestPage/TestPage";
+import { EntitiesPage } from "../MainPages/EntitiesPage/EntitiesPage";
 
 const PageWrapper = styled.div`
   position: absolute;

@@ -16,12 +16,6 @@ export const Page = styled.div`
   width: calc(100vw - ${LeftBarDimensions.leftBarWidth} - ${LeftBarDimensions.userTileMargins});
 `;
 
-export const color2 = (): Styles => {
-  return {
-    color: `${Colors.black}`,
-  };
-};
-
 export const border = (
   width: number,
   style: string,
@@ -60,14 +54,14 @@ export const boxShadow = (a: number, b: number, c: number, d: number) => {
   };
 };
 
-export const inputBorder = (): Styles[] => {
-  return [{ border: `2px solid ${Colors.lightgray}` }, { borderRadius: `3px` }];
+export const inputBorder = (): Styles => {
+  return { border: `2px solid ${Colors.lightgray}`, borderRadius: `3px` };
 };
 
-/*
-export const cannotSelect = () => {
+export const cannotSelect = (): Styles => {
   return {
     userSelect: `none`,
+    mozUserSelect: `none`,
+    webkitUserSelect: `none`,
   };
 };
-  */

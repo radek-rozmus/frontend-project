@@ -10,6 +10,7 @@ export const Colors = {
     fontblue: '#575866',
     blue: '#0b469f',
     lightblue: '#389dcd',
+    notificationColor: '#03cffc',
 
     shadowgray: `rgba(50, 50, 50, 0.5)`,
 }

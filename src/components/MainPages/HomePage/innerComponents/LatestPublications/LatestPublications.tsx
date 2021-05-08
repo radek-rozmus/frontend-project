@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Colors } from "../../../../../styledHelpers/Colors";
 
-import { Wrapper, boxShadow } from "../../../../../styledHelpers/Components";
+import { Wrapper, boxShadow, cannotSelect } from "../../../../../styledHelpers/Components";
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
 import { Publication } from "./Publication";
 import { PickedContent } from "./PickedContent";
-import { User } from "../../../../../types/User";
+import { User } from "../../../../../redux/types/User";
 
 const LatestPublicationsWrapper = styled(Wrapper)`
   height: 400px;
@@ -54,6 +54,7 @@ const MorePublicationsLink = styled(Link)`
   text-decoration: none;
   text-align: bottom;
   font-size: ${fontSize[16]};
+  ${cannotSelect()};
 `;
 
 export const LatestPublications: FC = () => {

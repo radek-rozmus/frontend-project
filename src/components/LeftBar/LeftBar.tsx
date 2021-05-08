@@ -2,10 +2,10 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { Wrapper, boxShadow, border } from "../../styledHelpers/Components";
+import { Wrapper, boxShadow, border, cannotSelect } from "../../styledHelpers/Components";
 import { Colors } from "../../styledHelpers/Colors";
 import { fontSize } from "../../styledHelpers/FontSizes";
-import { User } from "../../types/User";
+import { User } from "../../redux/types/User";
 import { LeftMenu } from "./LeftMenu";
 import { LeftBarDimensions } from "../../styledHelpers/commonVariables";
 
@@ -17,6 +17,7 @@ const LeftBarWrapper = styled(Wrapper)`
   height: 100%;
   display: block;
   font-size: ${fontSize[16]};
+  ${cannotSelect()};
 `;
 
 const UserTile = styled.div`

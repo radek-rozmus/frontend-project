@@ -1,10 +1,10 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC} from "react";
 import styled from "styled-components";
 
 import { ExpandedMenuItem } from "./ExpandedMenuItem";
 import { ExpandedMenuAccountTile } from "./ExpandedMenuAccountTile";
 
-import { border, inputBorder } from "../../styledHelpers/Components";
+import { border, cannotSelect, inputBorder } from "../../styledHelpers/Components";
 import { Colors } from "../../styledHelpers/Colors";
 import { fontSize } from "../../styledHelpers/FontSizes";
 import {
@@ -12,7 +12,10 @@ import {
   ExpandedMenuDimensions,
 } from "../../styledHelpers/commonVariables";
 
-import { User } from "../../types/User";
+import { User } from "../../redux/types/User";
+
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { expandedMenuFilterChange } from "../../redux/actions/filterComponentsActions";
 
 const FilterInput = styled.input`
   width: 182px;
@@ -26,6 +29,7 @@ const FilterInput = styled.input`
   outline: none;
   ${inputBorder()};
   text-align: left;
+  letter-spacing: 1px;
 `;
 
 const List = styled.ul`
@@ -48,9 +52,7 @@ const Menu = styled.div`
   padding: 10px;
   background: white;
   ${border(1, "solid", Colors.lightgray)};
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Old versions of Firefox */
-  user-select: none;
+  ${cannotSelect()};
 `;
 
 export const commonMenuElements = {
@@ -76,9 +78,10 @@ export interface ExpandedMenuProps {
 }
 
 export const ExpandedMenu: FC<ExpandedMenuProps> = (props) => {
-  const [filterInputText, setFilterInputText] = useState("");
+  const filterInputText = useAppSelector((state) => state.filterComponents.expandedMenuFilter);
+  const dispatch = useAppDispatch();
   const handleFilterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFilterInputText(e.target.value);
+    dispatch(expandedMenuFilterChange(e.target.value));
   };
 
   return (

@@ -1,9 +1,9 @@
 import {FC} from 'react';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../../../../hooks/hooks';
+import { useAppDispatch } from '../../../../../redux/hooks/hooks';
 import { Colors } from '../../../../../styledHelpers/Colors';
 import { fontSize } from '../../../../../styledHelpers/FontSizes';
-import { ActionNumberPayload } from '../../../../../types/Action';
+import { ActionNumberPayload } from '../../../../../redux/types/Action';
 
 const PageButtonWrapper = styled.button`
   display: inline-block;

@@ -8,6 +8,7 @@ import {
 } from "../../../../../styledHelpers/Components";
 import { Colors } from "../../../../../styledHelpers/Colors";
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
+import { cannotSelect } from "../../../../../styledHelpers/Components";
 
 const CardWrapper = styled(Wrapper)`
   position: relative;
@@ -15,9 +16,7 @@ const CardWrapper = styled(Wrapper)`
   background-color: white;
   height: 240px;
   width: 300px;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Old versions of Firefox */
-  user-select: none;
+  ${cannotSelect()};
 `;
 const CardImage = styled.img`
   position: absolute;

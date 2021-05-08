@@ -4,7 +4,7 @@ import { Colors } from "../../../../../styledHelpers/Colors";
 
 import { Wrapper } from "../../../../../styledHelpers/Components";
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
-import { User } from "../../../../../types/User";
+import { User } from "../../../../../redux/types/User";
 
 const PickedContentInnerWrapper = styled(Wrapper)`
   position: absolute;

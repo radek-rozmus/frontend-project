@@ -1,6 +1,4 @@
-import { Component } from "react";
-import { Provider } from "react-redux";
-import {store} from "../../store/store";
+import { FC, useEffect } from "react";
 import styled from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 
@@ -8,7 +6,9 @@ import { AppHeader } from "../AppHeader/AppHeader";
 import { AppMain } from "../AppMain/AppMain";
 import { Colors } from "../../styledHelpers/Colors";
 
-import { User } from "../../types/User";
+import { User } from "../../redux/types/User";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
+import { setUser } from "../../redux/actions/userAccountActions";
 
 const Layout = styled.div`
   font-family: "Open Sans", sans-serif;
@@ -16,33 +16,33 @@ const Layout = styled.div`
   color: ${Colors.fontblue};
 `;
 
-class App extends Component {
-  state = {
-    usr: {},
-  };
+ 
+const App: FC = () => {
 
-  componentDidMount() {
+  const user: User = useAppSelector((state) => state.userAccount.user);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    
     fetch("https://jsonplaceholder.typicode.com/users/3")
       .then((response) => response.json())
       .then((json) => {
-        this.setState({
-          usr: { id: json.id, name: json.name, company: json.company.name },
-        });
-      });
-  }
+        dispatch(setUser({ id: json.id, name: json.name, company: json.company.name }));
+      })
+    },[dispatch]);
+    
 
-  render() {
-    return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <Layout>
-            <AppHeader user={this.state.usr as User} />
-            <AppMain user={this.state.usr as User} />
-          </Layout>
-        </BrowserRouter>
-      </Provider>
-    );
-  }
+  return (
+      <BrowserRouter>
+        <Layout>
+          <AppHeader user={user as User} />
+          <AppMain user={user as User} />
+        </Layout>
+      </BrowserRouter>
+  );
 }
-
+ 
 export default App;
+
+  
+

@@ -8,7 +8,7 @@ export const LeftBarDimensions = {
 export const AppHeaderDimensions = {
   barHeight: `60px`,
   viewportEmptySpace: `20px`,
-  rightIconsPanelWidth: `140px`,
+  rightIconsPanelWidth: `240px`,
   inputWrapperWidth: `1000px`,
 };
 export const ExpandedMenuDimensions = {

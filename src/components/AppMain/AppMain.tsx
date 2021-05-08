@@ -5,8 +5,8 @@ import { Wrapper } from '../../styledHelpers/Components';
 import { AppHeaderDimensions } from '../../styledHelpers/commonVariables';
 
 import { LeftBar } from '../LeftBar/LeftBar';
-import { MainContent } from '../MainContent/MainContent'
-import { User } from '../../types/User';
+import { MainContent } from './MainContent'
+import { User } from '../../redux/types/User';
 
 
 

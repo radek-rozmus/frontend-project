@@ -1,12 +1,12 @@
 import {FC} from "react";
 import styled from "styled-components";
 
+import { cannotSelect } from "../../../../../styledHelpers/Components";
 import { Colors } from "../../../../../styledHelpers/Colors";
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
 
-import { content } from "./content";
 import { PageButton } from "./PageButton";
-import { setPage, previousFewPages, nextFewPages } from "../../../../../actions/resumeWorkActions";
+import { setPage, previousFewPages, nextFewPages } from "../../../../../redux/actions/resumeWorkActions";
 
 const PageButtonsWrapper = styled.div`
   position: relative;
@@ -15,9 +15,7 @@ const PageButtonsWrapper = styled.div`
   height: 24px;
   padding-top: 8px;
   text-align: center;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Old versions of Firefox */
-  user-select: none;
+  ${cannotSelect()};
 `;
 const PageLabel = styled.div`
   display: inline-block;
@@ -33,35 +31,37 @@ const MoreLabel = styled(PageLabel)`
 
 export interface PageButtonsProps {
   page: number;
+  numberOfPages: number;
 }
 
-export const PageButtons: FC<PageButtonsProps> = ({page}) => {
-  const numberOfPages = Math.ceil(content.length / 10);
+export const PageButtons: FC<PageButtonsProps> = ({page, numberOfPages}) => {
 
-  return (
+  const component = numberOfPages > 1?(
     <PageButtonsWrapper>
-      {page > 1 && (
+      { numberOfPages > 1 && page > 1 && (
         <PageButton click={previousFewPages} pages={1} text="PREVIOUS"/>
       )}
-      {page > 2 && (
+      {numberOfPages > 1 && page > 2 && (
         <PageButton click={setPage} pages = {1} text="1"/>
       )}
-      {(page - 1) - 1 > 1 && <MoreLabel>...</MoreLabel>}
+      {numberOfPages > 1 && (page - 1) - 1 > 1 && <MoreLabel>...</MoreLabel>}
       {page > 1 && (
         <PageButton click={previousFewPages} pages={1} text = {`${page - 1}`}/>
       )}
-      {<PageLabel>{page}</PageLabel>}
-      {page < numberOfPages && (
+      {numberOfPages > 1 && <PageLabel>{page}</PageLabel>}
+      {numberOfPages > 1 && page < numberOfPages && (
         <PageButton click={nextFewPages} pages = {1} text = {`${page + 1}`}/>
       )}
       {(numberOfPages - page) - 1 > 1 && <MoreLabel>...</MoreLabel>}
-      {page < numberOfPages - 1 && (
+      {numberOfPages > 1 && page < numberOfPages - 1 && (
         <PageButton click={setPage} pages = {numberOfPages} text = {`${numberOfPages}`}/>
       )}
-      {page < numberOfPages && (
+      {numberOfPages > 1 && page < numberOfPages && (
         <PageButton click={nextFewPages} pages = {1} text = "NEXT"/>
       )}
     </PageButtonsWrapper>
-  );
+  ) : <></>;
+
+  return component;
 };
 

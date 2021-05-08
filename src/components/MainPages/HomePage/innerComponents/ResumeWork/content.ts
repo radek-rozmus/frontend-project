@@ -122,7 +122,7 @@ export const content = [
 
     {
         id: 21,
-        title: "#20",
+        title: "Contract #20",
         text:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum vel purus ullamcorper cursus. Vestibulum fermentum suscipit velit. Vivamus sodales sem mauris, vel tincidunt mauris lobortis ut. Quisque aliquet, metus non sodales varius, libero libero fringilla est, quis auctor dolor lorem congue metus.",
       },
@@ -357,6 +357,18 @@ export const content = [
         {
           id: 60,
           title: "Contract #59",
+          text:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum vel purus ullamcorper cursus. Vestibulum fermentum suscipit velit. Vivamus sodales sem mauris, vel tincidunt mauris lobortis ut. Quisque aliquet, metus non sodales varius, libero libero fringilla est, quis auctor dolor lorem congue metus.",
+        },
+        {
+          id: 61,
+          title: "Contract #60",
+          text:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum vel purus ullamcorper cursus. Vestibulum fermentum suscipit velit. Vivamus sodales sem mauris, vel tincidunt mauris lobortis ut. Quisque aliquet, metus non sodales varius, libero libero fringilla est, quis auctor dolor lorem congue metus.",
+        },
+        {
+          id: 62,
+          title: "Contract #61",
           text:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum vel purus ullamcorper cursus. Vestibulum fermentum suscipit velit. Vivamus sodales sem mauris, vel tincidunt mauris lobortis ut. Quisque aliquet, metus non sodales varius, libero libero fringilla est, quis auctor dolor lorem congue metus.",
         },

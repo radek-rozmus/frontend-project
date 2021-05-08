@@ -5,9 +5,12 @@ import {
   Wrapper,
   border,
   boxShadow,
+  cannotSelect,
 } from "../../../../../styledHelpers/Components";
 import { Colors } from "../../../../../styledHelpers/Colors";
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks/hooks";
+import { addFollow, removeFollow } from "../../../../../redux/actions/userAccountActions";
 
 const WorkTileWrapper = styled(Wrapper)`
   position: relative;
@@ -19,9 +22,6 @@ const WorkTileWrapper = styled(Wrapper)`
   border-radius: 5px;
   ${boxShadow(0, 0, 10, -5)};
   margin-bottom: 12px;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Old versions of Firefox */
-  user-select: none;
   text-align: left;
   justify-content: left;
 `;
@@ -53,19 +53,53 @@ const WorkTileDescription = styled.div`
   font-weight: 400;
   line-height: 150%;
 `;
-
+const FollowButton = styled.div`
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-size: ${fontSize[14]};
+  font-weight: 600;
+  cursor: pointer;
+  ${cannotSelect()};
+`;
+const FollowedSpan = styled.span`
+  color: ${Colors.grayLighter};
+`;
+const FollowSpan = styled.span`
+  color: ${Colors.blue};
+`;
 
 export interface WorkTileProps {
   title: string;
   text: string;
+  id: number;
 }
 
-export const WorkTile: FC<WorkTileProps> = (props) => {
+export const WorkTile: FC<WorkTileProps> = ({title, text, id}) => {
+  const isFollowed = useAppSelector(state => state.userAccount.followed.includes(id));
+  const dispatch = useAppDispatch();
+
+  const handleToggleFollow = () => {
+    if (!!isFollowed) {
+      dispatch(removeFollow(id));
+    } else {
+      dispatch(addFollow(id));
+    }
+  };
   return (
     <WorkTileWrapper>
-      <WorkTileTitle>{props.title}</WorkTileTitle>
-      <WorkTileContent>{props.text}</WorkTileContent>
-      <WorkTileDescription>Subsid. corp.  /  Client contract  /  Updated 3 days ago by USER</WorkTileDescription>
+      <WorkTileTitle>{title}</WorkTileTitle>
+      <WorkTileContent>{text}</WorkTileContent>
+      <WorkTileDescription>
+        Subsid. corp. / Client contract / Updated 3 days ago by USER
+      </WorkTileDescription>
+      <FollowButton onClick={handleToggleFollow}>
+        {isFollowed ? (
+          <FollowedSpan>unfollow</FollowedSpan>
+        ) : (
+          <FollowSpan>follow</FollowSpan>
+        )}
+      </FollowButton>
     </WorkTileWrapper>
   );
 };
