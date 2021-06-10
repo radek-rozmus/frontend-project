@@ -68,7 +68,7 @@ export const LatestPublications: FC = () => {
     fetch("https://jsonplaceholder.typicode.com/users/6")
       .then((response) => response.json())
       .then((json) => {
-        setUser({ id: json.id, name: json.name, company: json.company.name });
+        setUser({ id: json.id, name: json.name, company: json.company.name, city: json.address.city, email: json.email, phone: json.phone });
       });
   });
 

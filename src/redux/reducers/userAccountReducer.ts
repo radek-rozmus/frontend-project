@@ -13,6 +13,9 @@ const initialState = {
     id:  undefined,
     name: undefined,
     company:  undefined,
+    city: undefined,
+    email: undefined,
+    phone: undefined,
   },
   followed: []
 }

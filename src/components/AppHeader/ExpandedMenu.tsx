@@ -8,8 +8,6 @@ import { border, cannotSelect, inputBorder } from "../../styledHelpers/Component
 import { Colors } from "../../styledHelpers/Colors";
 import { fontSize } from "../../styledHelpers/FontSizes";
 import {
-  AppHeaderDimensions,
-  ExpandedMenuDimensions,
 } from "../../styledHelpers/commonVariables";
 
 import { User } from "../../redux/types/User";
@@ -45,9 +43,7 @@ const ListTitle = styled.div`
 
 const Menu = styled.div`
   position: absolute;
-  top: calc(
-    ${AppHeaderDimensions.barHeight} - ${ExpandedMenuDimensions.topSpace} + 1px
-  );
+  top: 41px;
   width: 200px;
   padding: 10px;
   background: white;

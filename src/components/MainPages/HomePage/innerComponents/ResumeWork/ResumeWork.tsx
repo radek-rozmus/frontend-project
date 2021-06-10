@@ -14,7 +14,7 @@ import {
   useAppSelector,
 } from "../../../../../redux/hooks/hooks";
 import { resumeWorkFilterChange } from "../../../../../redux/actions/filterComponentsActions";
-import { setFilterFollowed } from "../../../../../redux/actions/resumeWorkActions";
+import { setFilterFollowed, setPage } from "../../../../../redux/actions/resumeWorkActions";
 import { Colors } from "../../../../../styledHelpers/Colors";
 import { FilterIconSVG } from "../../../../../styledHelpers/Icons";
 import useDropdown from "react-dropdown-hook";
@@ -161,6 +161,8 @@ export const ResumeWork: FC = () => {
 
   const handleFilterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(resumeWorkFilterChange(e.target.value));
+    if(localState.page !== 1) dispatch(setPage(1));
+    
   };
 
   const searchInput = useRef<HTMLInputElement>(null);
@@ -173,12 +175,14 @@ export const ResumeWork: FC = () => {
   const handleFilterFollowedClick = () => {
     if (!localState.filterFollowed) {
       dispatch(setFilterFollowed(true));
+      dispatch(setPage(1));
     }
     toggleDropdown();
   };
   const handleFilterAllClick = () => {
     if (!!localState.filterFollowed) {
       dispatch(setFilterFollowed(false));
+      dispatch(setPage(1));
     }
     toggleDropdown();
   };
@@ -213,6 +217,7 @@ export const ResumeWork: FC = () => {
       <ResumeWorkContent>
         {!!localState.filterFollowed?
         (contentFilteredFollowed.map((item, index) => {
+          console.log(contentFilteredFollowed)
           return (
             index <= localState.page * 10 - 1 &&
             index >= (localState.page - 1) * 10 && (
@@ -224,7 +229,7 @@ export const ResumeWork: FC = () => {
           return (
             index <= localState.page * 10 - 1 &&
             index >= (localState.page - 1) * 10 && (
-              <WorkTile title={item.title} text={item.text} key={item.id} id = {item.id} />
+              <WorkTile title={item.title} text={item.text} key={item.id} id={item.id} />
             )
           );
         }))}

@@ -14,7 +14,6 @@ import { ExpandedMenu } from "./ExpandedMenu";
 import useDropdown from "react-dropdown-hook";
 import { fontSize } from "../../styledHelpers/FontSizes";
 import {
-  ExpandedMenuDimensions,
   AppHeaderDimensions,
 } from "../../styledHelpers/commonVariables";
 
@@ -26,7 +25,7 @@ const TopBarWrapper = styled(Wrapper)`
   position: absolute;
   left: 0;
   top: 0;
-  height: ${AppHeaderDimensions.barHeight}; //set height to 50px
+  height: ${AppHeaderDimensions.barHeight};
   width: 100%;
   ${boxShadow(0, 0, 13, -3)};
   ${cannotSelect()};
@@ -38,22 +37,26 @@ const InnerWrapper = styled.div`
   height: 100%;
   background: ${Colors.white};
   position: relative;
+  display: flex;
   ${border(1, "solid", Colors.lightgray, "bottom")};
+  align-items: center;
 `;
 
 const RightIconsPanel = styled.div`
-  top: 4px;
   width: ${AppHeaderDimensions.rightIconsPanelWidth};
+  height: 100%;
   text-align: center;
   position: absolute;
   right: ${AppHeaderDimensions.viewportEmptySpace};
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 `;
 
 const InputWrapper = styled.div`
   position: absolute;
-  right: ${AppHeaderDimensions.rightIconsPanelWidth};
-  top: 12px;
+  right: calc(${AppHeaderDimensions.rightIconsPanelWidth} + 20px);
   width: ${AppHeaderDimensions.inputWrapperWidth};
   text-align: right;
   width: 480px !important;
@@ -64,20 +67,18 @@ const InputWrapper = styled.div`
 `;
 
 const SearchImg = styled.img`
-  right: 16px;
+  right: 12px;
   top: 10px;
   position: absolute;
   display: inline-block;
 `;
 
 export const CustomImg = styled.img`
-  margin: 0 10px;
 `;
 
 const AppLogo = styled.img`
   position: absolute;
   left: ${AppHeaderDimensions.viewportEmptySpace};
-  top: 5px;
   overflow: hidden;
 `;
 
@@ -97,22 +98,20 @@ export const CustomInput = styled.input`
 const ExpandedMenuWrapper = styled.div`
   position: absolute;
   left: 100px;
-  top: ${ExpandedMenuDimensions.topSpace};
-  padding-top: 6px;
 `;
 const ExpandedMenuButton = styled.div`
   cursor: pointer;
   width: 200px;
+  display: flex;
+  align-items: center;
 
   & ${CustomImg}:nth-child(1) {
     position: relative;
-    top: 4px;
     padding-right: 10px;
   }
   & ${CustomImg}:nth-child(3) {
     position: absolute;
     right: 0;
-    top: 16px;
   }
 `;
 
@@ -136,10 +135,8 @@ const NotificationBadge = styled.span`
   width: 50px;
   height: 36px;
   padding-top: 14px;
-  display: inline-block;
-  margin-left: 4px;
-  margin-right: 4px;
   border-radius: 200px;
+  margin: 0 4px;
   `;
 
 export interface AppHeaderProps {
