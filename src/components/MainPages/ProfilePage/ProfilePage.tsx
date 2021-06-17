@@ -6,6 +6,7 @@ import { Colors } from "../../../styledHelpers/Colors";
 import { LeftBarDimensions } from "../../../styledHelpers/commonVariables";
 import { border, boxShadow, Page } from "../../../styledHelpers/Components";
 import UserData from "./innerComponents/UserData";
+import UserDetails from "./innerComponents/UserDetails";
 
 
 
@@ -18,10 +19,10 @@ const UserProfileData = styled.div`
   height: 199px;
   ${border(1, "solid", Colors.lightgray, "bottom")};
 `;
-const UserProfileDetail = styled.div`
+const UserProfileDetails = styled.div`
   position: flex !important;
   flex-direction: column;
-  height: 320px;
+  min-height: 320px;
   //${border(1, "solid", Colors.lightgray, "bottom")};
 `;
 
@@ -47,7 +48,7 @@ const SeeProfile = styled.div`
   text-align: center;
   position: relative;
   top: 32px;
-  width: ${LeftBarDimensions.userTileDimensions};
+  width: 100%;
   height: 64px;
   padding-top: 6px;
   color: ${Colors.blue};
@@ -74,7 +75,9 @@ export const ProfilePage: FC<PageProfileProps> = () => {
         </UserLink>
         <UserData/>
       </UserProfileData>
-      <UserProfileDetail></UserProfileDetail>
+      <UserProfileDetails>
+      <UserDetails/>
+      </UserProfileDetails>
     </PageInnerWrapper>
   );
 };

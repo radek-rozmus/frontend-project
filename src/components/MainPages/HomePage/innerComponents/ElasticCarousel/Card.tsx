@@ -22,7 +22,6 @@ const CardImage = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: red;
   height: 100px;
   width: 300px;
 `;

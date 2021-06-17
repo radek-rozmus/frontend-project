@@ -6,7 +6,7 @@ import { AppHeaderDimensions } from '../../styledHelpers/commonVariables';
 
 import { LeftBar } from '../LeftBar/LeftBar';
 import { MainContent } from './MainContent'
-import { User } from '../../redux/types/User';
+import { User } from '../../models/types/User';
 
 
 

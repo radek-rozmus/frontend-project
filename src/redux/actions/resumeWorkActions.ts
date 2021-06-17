@@ -1,4 +1,4 @@
-import {ActionNumberPayload, ActionBooleanPayload} from '../types/Action';
+import {ActionNumberPayload, ActionBooleanPayload} from '../../models/types/Action';
 
 export const SET_PAGE = 'SET_PAGE';
 export const NEXT_PAGE = 'NEXT_PAGE';

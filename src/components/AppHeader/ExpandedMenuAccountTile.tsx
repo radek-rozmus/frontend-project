@@ -6,7 +6,7 @@ import { Colors } from "../../styledHelpers/Colors";
 import { fontSize } from "../../styledHelpers/FontSizes";
 
 import { Link } from "react-router-dom";
-import { User } from "../../redux/types/User";
+import { User } from "../../models/types/User";
 
 import { commonMenuElements } from "./ExpandedMenu";
 

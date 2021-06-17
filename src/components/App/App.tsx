@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 
@@ -6,9 +6,10 @@ import { AppHeader } from "../AppHeader/AppHeader";
 import { AppMain } from "../AppMain/AppMain";
 import { Colors } from "../../styledHelpers/Colors";
 
-import { User } from "../../redux/types/User";
+import { User } from "../../models/types/User";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
-import { setUser } from "../../redux/actions/userAccountActions";
+import { setUser, setUsers } from "../../redux/actions/userAccountActions";
+import LoadingScreen from "./innerComponents/LoadingScreen";
 
 const Layout = styled.div`
   display: flex;
@@ -17,33 +18,47 @@ const Layout = styled.div`
   color: ${Colors.fontblue};
 `;
 
- 
 const App: FC = () => {
-
+  const [loaded, setLoaded] = useState(false);
   const user: User = useAppSelector((state) => state.userAccount.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    
-    fetch("https://jsonplaceholder.typicode.com/users/1")
+    fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
-      .then((json) => {
-        dispatch(setUser({ id: json.id, name: json.name, company: json.company.name, city: json.address.city, email: json.email, phone: json.phone }));
+      .then((json) =>
+        json.map((item: any) => {
+          return {
+            id: item.id,
+            name: item.name,
+            company: item.company.name,
+            city: item.address.city,
+            email: item.email,
+            phone: item.phone,
+          } as User;
+        })
+      )
+      .then((res: User[]) => {
+        dispatch(setUser(res[0]));
+        dispatch(setUsers(res));
       })
-    },[dispatch]);
-    
+      .then(() => setLoaded(true));
+  }, [dispatch]);
 
   return (
-      <BrowserRouter>
-        <Layout>
-          <AppHeader user={user as User} />
-          <AppMain user={user as User} />
-        </Layout>
-      </BrowserRouter>
+    <>
+      {loaded ? (
+        <BrowserRouter>
+          <Layout>
+            <AppHeader user={user} />
+            <AppMain user={user} />
+          </Layout>
+        </BrowserRouter>
+      ) : (
+        <LoadingScreen />
+      )}
+    </>
   );
-}
- 
+};
+
 export default App;
-
-  
-

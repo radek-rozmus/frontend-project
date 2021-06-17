@@ -10,7 +10,7 @@ import { fontSize } from "../../styledHelpers/FontSizes";
 import {
 } from "../../styledHelpers/commonVariables";
 
-import { User } from "../../redux/types/User";
+import { User } from "../../models/types/User";
 
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { expandedMenuFilterChange } from "../../redux/actions/filterComponentsActions";

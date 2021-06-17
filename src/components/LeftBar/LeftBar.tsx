@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Wrapper, boxShadow, border, cannotSelect } from "../../styledHelpers/Components";
 import { Colors } from "../../styledHelpers/Colors";
 import { fontSize } from "../../styledHelpers/FontSizes";
-import { User } from "../../redux/types/User";
+import { User } from "../../models/types/User";
 import { LeftMenu } from "./LeftMenu";
 import { LeftBarDimensions } from "../../styledHelpers/commonVariables";
 

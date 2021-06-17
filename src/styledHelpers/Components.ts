@@ -11,6 +11,8 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 
+
+
 export const Page = styled.div`
   position: absolute;
   width: calc(100vw - ${LeftBarDimensions.leftBarWidth} - ${LeftBarDimensions.userTileMargins});

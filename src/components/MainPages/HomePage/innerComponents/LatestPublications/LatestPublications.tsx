@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Colors } from "../../../../../styledHelpers/Colors";
@@ -7,7 +7,8 @@ import { Wrapper, boxShadow, cannotSelect } from "../../../../../styledHelpers/C
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
 import { Publication } from "./Publication";
 import { PickedContent } from "./PickedContent";
-import { User } from "../../../../../redux/types/User";
+import { User } from "../../../../../models/types/User";
+import { useAppSelector } from "../../../../../redux/hooks/hooks";
 
 const LatestPublicationsWrapper = styled(Wrapper)`
   height: 400px;
@@ -58,20 +59,13 @@ const MorePublicationsLink = styled(Link)`
 `;
 
 export const LatestPublications: FC = () => {
-  const [user, setUser] = useState({} as User);
+  const user: User = useAppSelector((state) => state.userAccount.users[9]);
 
   const publicationDate = new Date(2010, 11, 17);
   const publicationsText =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fringilla ultricies magna bibendum elementum. Nullam vestibulum eros egestas auctor tincidunt.";
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users/6")
-      .then((response) => response.json())
-      .then((json) => {
-        setUser({ id: json.id, name: json.name, company: json.company.name, city: json.address.city, email: json.email, phone: json.phone });
-      });
-  });
-
+  
   return (
     <LatestPublicationsWrapper>
       <Picture src="./media/city.jpg" />

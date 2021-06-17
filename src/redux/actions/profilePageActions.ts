@@ -1,4 +1,4 @@
-import { ActionBooleanPayload } from '../types/Action';
+import { ActionBooleanPayload } from '../../models/types/Action';
 
 export const TOGGLE_DATA_EDITING = 'TOGGLE_DATA_EDITING';
 export const TOGGLE_DETAILS_EDITING = 'TOGGLE_DETAILS_EDITING';

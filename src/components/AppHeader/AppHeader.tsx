@@ -18,7 +18,7 @@ import {
 } from "../../styledHelpers/commonVariables";
 
 import { media } from "../../styledHelpers/Breakpoints";
-import { User } from "../../redux/types/User";
+import { User } from "../../models/types/User";
 import { cannotSelect } from "../../styledHelpers/Components";
 
 const TopBarWrapper = styled(Wrapper)`
