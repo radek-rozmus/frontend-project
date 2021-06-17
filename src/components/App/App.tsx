@@ -10,6 +10,8 @@ import { User } from "../../models/types/User";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { setUser, setUsers } from "../../redux/actions/userAccountActions";
 import LoadingScreen from "./innerComponents/LoadingScreen";
+import { Post } from "../../models/types/Post";
+import { setPosts } from "../../redux/actions/postsActions";
 
 const Layout = styled.div`
   display: flex;
@@ -24,7 +26,7 @@ const App: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    const user = fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((json) =>
         json.map((item: any) => {
@@ -42,8 +44,25 @@ const App: FC = () => {
         dispatch(setUser(res[0]));
         dispatch(setUsers(res));
       })
+      const posts = fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((json) =>
+        json.map((item: any) => {
+          return {
+            id: item.id,
+            title: item.title,
+            text: item.body,
+            user: item.userId
+          };
+        })
+      )
+      .then((res: Post[]) => {
+        dispatch(setPosts(res));
+      });
+      Promise.all([posts, user])
       .then(() => setLoaded(true));
   }, [dispatch]);
+
 
   return (
     <>

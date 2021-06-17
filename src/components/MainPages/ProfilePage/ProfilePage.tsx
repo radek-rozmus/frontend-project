@@ -1,9 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useAppSelector } from "../../../redux/hooks/hooks";
 import { Colors } from "../../../styledHelpers/Colors";
-import { LeftBarDimensions } from "../../../styledHelpers/commonVariables";
 import { border, boxShadow, Page } from "../../../styledHelpers/Components";
 import UserData from "./innerComponents/UserData";
 import UserDetails from "./innerComponents/UserDetails";
@@ -23,7 +21,6 @@ const UserProfileDetails = styled.div`
   position: flex !important;
   flex-direction: column;
   min-height: 320px;
-  //${border(1, "solid", Colors.lightgray, "bottom")};
 `;
 
 const UserLink = styled(Link)`
@@ -59,12 +56,6 @@ const SeeProfile = styled.div`
 export interface PageProfileProps {}
 
 export const ProfilePage: FC<PageProfileProps> = () => {
-  const state = useAppSelector((state) => {
-    const user = state.userAccount.user;
-    const profile = state.profile;
-    return { user, profile };
-  });
-
 
   return (
     <PageInnerWrapper>

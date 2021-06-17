@@ -73,9 +73,10 @@ export interface WorkTileProps {
   title: string;
   text: string;
   id: number;
+  user: string;
 }
 
-export const WorkTile: FC<WorkTileProps> = ({title, text, id}) => {
+export const WorkTile: FC<WorkTileProps> = ({title, text, id, user}) => {
   const isFollowed = useAppSelector(state => state.userAccount.followed.includes(id));
   const dispatch = useAppDispatch();
 
@@ -91,7 +92,7 @@ export const WorkTile: FC<WorkTileProps> = ({title, text, id}) => {
       <WorkTileTitle>{title}</WorkTileTitle>
       <WorkTileContent>{text}</WorkTileContent>
       <WorkTileDescription>
-        Subsid. corp. / Client contract / Updated 3 days ago by USER
+        Subsid. corp. / Client contract / Updated 3 days ago by {user}
       </WorkTileDescription>
       <FollowButton onClick={handleToggleFollow}>
         {isFollowed ? (

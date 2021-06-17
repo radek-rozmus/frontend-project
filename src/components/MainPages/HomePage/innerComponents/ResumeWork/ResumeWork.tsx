@@ -5,8 +5,6 @@ import { border, inputBorder, Wrapper } from "../../../../../styledHelpers/Compo
 import { ResumeWorkDimensions } from "../../../../../styledHelpers/commonVariables";
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
 
-import { content } from "./content";
-
 import { WorkTile } from "./WorkTile";
 import { PageButtons } from "./PageButtons";
 import {
@@ -18,6 +16,7 @@ import { setFilterFollowed, setPage } from "../../../../../redux/actions/resumeW
 import { Colors } from "../../../../../styledHelpers/Colors";
 import { FilterIconSVG } from "../../../../../styledHelpers/Icons";
 import useDropdown from "react-dropdown-hook";
+import { Post } from "../../../../../models/types/Post";
 
 const ResumeWorkWrapper = styled(Wrapper)`
   position: absolute;
@@ -134,7 +133,9 @@ export const ResumeWork: FC = () => {
     const filterInputText = state.filterComponents.resumeWorkFilter;
     const filterFollowed = state.resumeWork.filterFollowed;
     const followed = state.userAccount.followed;
-    return { page, filterInputText, filterFollowed, followed };
+    const content = state.posts.posts;
+    const users = state.userAccount.users;
+    return { page, filterInputText, filterFollowed, followed, content, users };
   });
 
   const [dropdownWrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
@@ -144,13 +145,13 @@ export const ResumeWork: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const contentFiltered = content.filter((item) => {
+  const contentFiltered = localState.content.filter((item: Post) => {
     return item.title
       .toLowerCase()
       .includes(localState.filterInputText.toLowerCase());
   });
 
-  const contentFilteredFollowed = contentFiltered.filter((item) => {
+  const contentFilteredFollowed = contentFiltered.filter((item: Post) => {
     return localState.followed.includes(item.id);
   });
 
@@ -216,20 +217,20 @@ export const ResumeWork: FC = () => {
       </InputWrapper>
       <ResumeWorkContent>
         {!!localState.filterFollowed?
-        (contentFilteredFollowed.map((item, index) => {
+        (contentFilteredFollowed.map((item: Post, index: number) => {
           console.log(contentFilteredFollowed)
           return (
             index <= localState.page * 10 - 1 &&
             index >= (localState.page - 1) * 10 && (
-              <WorkTile title={item.title} text={item.text} key={item.id} id = {item.id} />
+              <WorkTile title={item.title} text={item.text} key={item.id} id = {item.id} user = {localState.users[item.user - 1]}/>
             )
           );
         }))
-        :(contentFiltered.map((item, index) => {
+        :(contentFiltered.map((item: Post, index: number) => {
           return (
             index <= localState.page * 10 - 1 &&
             index >= (localState.page - 1) * 10 && (
-              <WorkTile title={item.title} text={item.text} key={item.id} id={item.id} />
+              <WorkTile title={item.title} text={item.text} key={item.id} id={item.id} user = {localState.users[item.user - 1].name}/>
             )
           );
         }))}
