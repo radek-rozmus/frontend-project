@@ -2,6 +2,8 @@ import {FC} from 'react';
 import styled from "styled-components";
 import { Colors } from '../../../styledHelpers/Colors';
 import {boxShadow, Page} from '../../../styledHelpers/Components';
+import EntitiesBoard from './innerComponents/EntitiesBoard';
+import EntitiesMenu from './innerComponents/EntitiesMenu';
  
 
 const PageInnerWrapper = styled(Page)`
@@ -13,7 +15,8 @@ export const EntitiesPage: FC= () => {
     return ( 
 
         <PageInnerWrapper>
-            Entities
+            <EntitiesMenu/>
+            <EntitiesBoard/>
         </PageInnerWrapper>
      );
 }

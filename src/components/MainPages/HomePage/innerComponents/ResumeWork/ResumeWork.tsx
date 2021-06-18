@@ -216,13 +216,12 @@ export const ResumeWork: FC = () => {
         </FilterComponentWrapper>
       </InputWrapper>
       <ResumeWorkContent>
-        {!!localState.filterFollowed?
+        {localState.filterFollowed?
         (contentFilteredFollowed.map((item: Post, index: number) => {
-          console.log(contentFilteredFollowed)
           return (
             index <= localState.page * 10 - 1 &&
             index >= (localState.page - 1) * 10 && (
-              <WorkTile title={item.title} text={item.text} key={item.id} id = {item.id} user = {localState.users[item.user - 1]}/>
+              <WorkTile title={item.title} text={item.text} key={item.id} id = {item.id} user = {localState.users[item.user - 1].name}/>
             )
           );
         }))
