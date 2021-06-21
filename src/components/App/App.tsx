@@ -12,6 +12,7 @@ import { setUser, setUsers } from "../../redux/actions/userAccountActions";
 import LoadingScreen from "./innerComponents/LoadingScreen";
 import { Post } from "../../models/types/Post";
 import { setPosts } from "../../redux/actions/postsActions";
+import { setEntities } from "../../redux/actions/entitiesPageActions";
 
 const Layout = styled.div`
   display: flex;
@@ -43,8 +44,8 @@ const App: FC = () => {
       .then((res: User[]) => {
         dispatch(setUser(res[0]));
         dispatch(setUsers(res));
-      })
-      const posts = fetch("https://jsonplaceholder.typicode.com/posts")
+      });
+    const posts = fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
       .then((json) =>
         json.map((item: any) => {
@@ -52,17 +53,22 @@ const App: FC = () => {
             id: item.id,
             title: item.title,
             text: item.body,
-            user: item.userId
+            user: item.userId,
           };
         })
       )
       .then((res: Post[]) => {
         dispatch(setPosts(res));
+        const entities = res.map((item: Post) => {
+          const result = item.title.split(" ");
+          result.length = 3;
+          return result.join(" ");
+        });
+        entities.splice(32, entities.length - 32);
+        dispatch(setEntities(entities));
       });
-      Promise.all([posts, user])
-      .then(() => setLoaded(true));
+    Promise.all([posts, user]).then(() => setLoaded(true));
   }, [dispatch]);
-
 
   return (
     <>

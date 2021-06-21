@@ -1,18 +1,26 @@
-import { FC } from "react";
+import { ChangeEvent, FC, useRef } from "react";
 import styled from "styled-components";
-import { Wrapper } from "../../../../styledHelpers/Components";
+import {
+  border,
+  inputBorder,
+  Wrapper,
+} from "../../../../styledHelpers/Components";
 
 import { FiSettings, FiMenu, FiFilter } from "react-icons/fi";
-import { BiShare} from "react-icons/bi";
+import { BiShare } from "react-icons/bi";
 import BorderAllIcon from "@material-ui/icons/BorderAll";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
-import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import SortByAlphaIcon from "@material-ui/icons/SortByAlpha";
+import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import AdjustIcon from "@material-ui/icons/Adjust";
 import { fontSize } from "../../../../styledHelpers/FontSizes";
 import { Button, ButtonGroup } from "@material-ui/core";
 import { Colors } from "../../../../styledHelpers/Colors";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks/hooks";
+import useDropdown from "react-dropdown-hook";
+import { entitiesFilterChange } from "../../../../redux/actions/filterComponentsActions";
+import { toggleEntitiesFullscreen } from "../../../../redux/actions/entitiesPageActions";
 
 const InnerWrapper = styled(Wrapper)`
   display: grid;
@@ -39,15 +47,95 @@ const SearchAndFilter = styled.div`
   display: flex;
   justify-content: flex-end;
   padding-right: 20px;
-  justify-content: center;
   align-items: center;
   height: 48px;
   font-size: ${fontSize[18]};
+  gap: 20px;
+`;
+
+const EntitiesFilterInput = styled.input`
+  height: 28px;
+  font-size: ${fontSize[16]};
+  background: ${Colors.white};
+  outline: none;
+  padding-left: 12px;
+  letter-spacing: 1px;
+  ${inputBorder()};
+`;
+const FilterToggledComponent = styled.ul`
+  position: absolute;
+  width: 148px;
+  top: 34px;
+  z-index: 2;
+  background: ${Colors.backgroundgray};
+  ${border(1, "solid", Colors.lightgray)};
+  overflow: hidden;
+  border-radius: 3px;
+`;
+const FilterToggledComponentItem = styled.li`
+  position: relative;
+  max-width: 148px;
+  z-index: 2;
+  color: ${Colors.blue};
+  background: ${Colors.backgroundgray};
+  cursor: pointer;
+  padding: 12px 0 12px 12px;
+  transition: all 0.16s ease-in-out;
+  &:hover {
+    padding-left: 14px;
+    color: ${Colors.white};
+    background: ${Colors.blue};
+  }
+`;
+const FilterComponentWrapper = styled.div`
+position: relative;
 `;
 
 export interface EntitiesMenuProps {}
 
 const EntitiesMenu: FC<EntitiesMenuProps> = () => {
+  const localState = useAppSelector((state) => {   
+    const entitiesFilter = state.filterComponents.entitiesFilter;
+    const filterCategory = state.entities.filterCategory;
+    return { entitiesFilter, filterCategory };
+  });
+
+  const [dropdownWrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
+  
+  const menuHandle = () => {
+    toggleDropdown();
+  };
+
+  const dispatch = useAppDispatch();
+
+  // const contentFiltered = localState.content.filter((item: Post) => {
+  //   return item.title
+  //     .toLowerCase()
+  //     .includes(localState.filterInputText.toLowerCase());
+  // });
+
+  // const contentFilteredFollowed = contentFiltered.filter((item: Post) => {
+  //   return localState.followed.includes(item.id);
+  // });
+
+  const handleFilterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(entitiesFilterChange(e.target.value));
+  };
+
+  const searchInput = useRef<HTMLInputElement>(null);
+
+  const handleFilterFollowedClick = () => {
+    toggleDropdown();
+  };
+
+  const handleFilterAllClick = () => {
+    toggleDropdown();
+  };
+
+  const handleToggleFullscreen = () => {
+    dispatch(toggleEntitiesFullscreen());
+  };
+
   return (
     <InnerWrapper>
       <Title>
@@ -130,10 +218,10 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
               textTransform: "none",
               fontSize: fontSize[14],
               height: "36px",
-              border: 'none',
+              border: "none",
               borderLeft: `1px solid ${Colors.lightgray}`,
             }}
-            startIcon={<SortByAlphaIcon/>}
+            startIcon={<SortByAlphaIcon />}
           >
             Sort
           </Button>
@@ -144,9 +232,9 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
               textTransform: "none",
               fontSize: fontSize[14],
               height: "36px",
-              border: 'none',
+              border: "none",
             }}
-            startIcon={<FiFilter/>}
+            startIcon={<FiFilter />}
           >
             Filter
           </Button>
@@ -157,11 +245,12 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
               textTransform: "none",
               fontSize: fontSize[14],
               height: "36px",
-              border: 'none',
+              border: "none",
               borderLeft: `1px solid ${Colors.lightgray}`,
             }}
+            onClick={handleToggleFullscreen}
           >
-            <FullscreenIcon/>
+            <FullscreenIcon />
           </Button>
           <Button
             style={{
@@ -170,16 +259,55 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
               textTransform: "none",
               fontSize: fontSize[14],
               height: "36px",
-              border: 'none',
+              border: "none",
               borderLeft: `1px solid ${Colors.lightgray}`,
             }}
-            startIcon = {<BiShare/>}
+            startIcon={<BiShare />}
           >
             Share
           </Button>
         </ButtonGroup>
       </Menu>
-      <SearchAndFilter>SearchAndFilter</SearchAndFilter>
+      <SearchAndFilter>
+        <EntitiesFilterInput
+          type="text"
+          value={localState.entitiesFilter}
+          onChange={handleFilterInputChange}
+          placeholder="Search..."
+          ref={searchInput}
+        />
+        <FilterComponentWrapper ref={dropdownWrapperRef}>
+          <Button
+            style={{
+              height: "34px",
+              fontSize: fontSize[14],
+              background: Colors.backgroundgray,
+              color: Colors.blue,
+              outline: "none",
+              fontWeight: 600,
+              cursor: "pointer",
+              textTransform: 'none',
+              ...inputBorder(),
+              borderWidth: '1px',
+
+            }}
+            endIcon={<FiFilter />}
+            onClick={menuHandle}
+          >
+            {!!localState.filterCategory ? "Followed" : "All"}
+          </Button>
+          {dropdownOpen && (
+            <FilterToggledComponent>
+              <FilterToggledComponentItem onClick={handleFilterFollowedClick}>
+                Followed
+              </FilterToggledComponentItem>
+              <FilterToggledComponentItem onClick={handleFilterAllClick}>
+                All
+              </FilterToggledComponentItem>
+            </FilterToggledComponent>
+          )}
+        </FilterComponentWrapper>
+      </SearchAndFilter>
     </InnerWrapper>
   );
 };

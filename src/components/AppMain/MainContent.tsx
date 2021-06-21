@@ -7,6 +7,7 @@ import { HomePage } from "../MainPages/HomePage/HomePage";
 import { ProfilePage } from "../MainPages/ProfilePage/ProfilePage";
 import { TestPage } from "../MainPages/TestPage/TestPage";
 import { EntitiesPage } from "../MainPages/EntitiesPage/EntitiesPage";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 const PageWrapper = styled.div`
   position: absolute;
@@ -15,6 +16,12 @@ const PageWrapper = styled.div`
 `;
 
 export const MainContent: FC = () => {
+
+  const state = useAppSelector((state) => {
+    const entitiesFullscreen = state.entities.fullscreen;
+    return { entitiesFullscreen };
+  })
+
   return (
     <PageWrapper>
       <Switch>
@@ -31,7 +38,7 @@ export const MainContent: FC = () => {
           <TestPage />
         </Route>
         <Route path="/entities">
-          <EntitiesPage />
+          <EntitiesPage fullscreen = {state.entitiesFullscreen}/>
         </Route>
         <Route path="/administrations">
           <TestPage />

@@ -11,7 +11,6 @@ import { User } from '../../models/types/User';
 
 
 const MainPageWrapper = styled(Wrapper)`
-z-index: -1;
 position: absolute;
 justify-content: left;
 left: 0;
