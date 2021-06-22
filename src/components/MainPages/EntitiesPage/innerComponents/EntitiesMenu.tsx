@@ -20,7 +20,7 @@ import { Colors } from "../../../../styledHelpers/Colors";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks/hooks";
 import useDropdown from "react-dropdown-hook";
 import { entitiesFilterChange } from "../../../../redux/actions/filterComponentsActions";
-import { toggleEntitiesFullscreen } from "../../../../redux/actions/entitiesPageActions";
+import { changeEntitiesDisplayStyle, toggleEntitiesFullscreen, toggleEntitiesSort } from "../../../../redux/actions/entitiesPageActions";
 
 const InnerWrapper = styled(Wrapper)`
   display: grid;
@@ -132,9 +132,22 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
     toggleDropdown();
   };
 
+  //menu methods
+
   const handleToggleFullscreen = () => {
     dispatch(toggleEntitiesFullscreen());
   };
+  const handleToggleSort = () => {
+    dispatch(toggleEntitiesSort());
+  };
+  const handleShareClick = () => {
+    navigator.clipboard.writeText(window.location.href)
+  };
+  const handleToggleDisplayStyle = () => {
+    dispatch(changeEntitiesDisplayStyle());
+  };
+
+
 
   return (
     <InnerWrapper>
@@ -162,6 +175,7 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
             fontWeight: 600,
             border: `1px solid ${Colors.lightgray}`,
           }}
+          onClick={handleToggleDisplayStyle}
         >
           Mozaic
         </Button>
@@ -222,6 +236,7 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
               borderLeft: `1px solid ${Colors.lightgray}`,
             }}
             startIcon={<SortByAlphaIcon />}
+            onClick={handleToggleSort}
           >
             Sort
           </Button>
@@ -263,6 +278,7 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
               borderLeft: `1px solid ${Colors.lightgray}`,
             }}
             startIcon={<BiShare />}
+            onClick={handleShareClick}
           >
             Share
           </Button>
