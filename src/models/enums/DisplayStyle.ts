@@ -1,4 +1,4 @@
 export enum DisplayStyle{
     list,
-    mosaic,
+    mozaic,
 }

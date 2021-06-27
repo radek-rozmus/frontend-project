@@ -70,7 +70,7 @@ export const ElasticCarousel: FC = () => {
       >
         <Card
           cardNumber={1}
-          imgSrc={"./media/documents2.jpeg"}
+          imgSrc={"./media/workspaces/documents2.jpeg"}
           title="Client contract"
           type="Contract"
           numberOfUsers={150}
@@ -78,7 +78,7 @@ export const ElasticCarousel: FC = () => {
         ></Card>
         <Card
           cardNumber={2}
-          imgSrc={"./media/documents2.jpeg"}
+          imgSrc={"./media/workspaces/documents2.jpeg"}
           title="Supplier contract"
           type="Contract"
           numberOfUsers={25}
@@ -86,7 +86,7 @@ export const ElasticCarousel: FC = () => {
         ></Card>
         <Card
           cardNumber={3}
-          imgSrc={"./media/corporate.jpg"}
+          imgSrc={"./media/workspaces/corporate.jpg"}
           title="Corporate"
           type="Corporate"
           numberOfUsers={25}
@@ -94,7 +94,7 @@ export const ElasticCarousel: FC = () => {
         ></Card>
         <Card
           cardNumber={4}
-          imgSrc={"./media/norms.jpg"}
+          imgSrc={"./media/workspaces/norms.jpg"}
           title="Group Norms"
           type="Norms"
           numberOfUsers={25}
@@ -102,7 +102,7 @@ export const ElasticCarousel: FC = () => {
         ></Card>
         <Card
           cardNumber={5}
-          imgSrc={"./media/documents2.jpeg"}
+          imgSrc={"./media/workspaces/documents2.jpeg"}
           title="Real Estate contracts"
           type="Contract"
           numberOfUsers={25}
@@ -110,7 +110,7 @@ export const ElasticCarousel: FC = () => {
         ></Card>
         <Card
           cardNumber={6}
-          imgSrc={"./media/new-contract.jpg"}
+          imgSrc={"./media/workspaces/new-contract.jpg"}
           title="Empty contract slot"
           type="None"
           numberOfUsers={0}

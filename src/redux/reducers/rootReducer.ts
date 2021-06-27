@@ -6,6 +6,7 @@ import { userAccountReducer } from './userAccountReducer';
 import { profilePageReducer } from './profilePageReducer';
 import { postsReducer } from './postReducer';
 import { entitiesPageReducer } from './entitiesPageReducer';
+import { photosReducer } from './photosReducer';
 
 export const rootReducer = combineReducers({
     resumeWork: resumeWorkReducer,
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
     profile: profilePageReducer,
     posts: postsReducer,
     entities: entitiesPageReducer,
+    photos: photosReducer,
 });

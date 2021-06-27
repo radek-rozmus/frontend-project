@@ -7,7 +7,7 @@ import Entity from "./Entity";
 
 const InnerWrapper = styled(Wrapper)<{displayStyle: DisplayStyle}>`
   display: grid;
-  grid-template-columns: ${props => props.displayStyle === DisplayStyle.mosaic ? 'repeat(4, 1fr)' : '1fr'};
+  grid-template-columns: ${props => props.displayStyle === DisplayStyle.mozaic ? 'repeat(4, 1fr)' : '1fr'};
   padding: 20px;
   gap: 20px;
 `;

@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { userConfig } from "../../../config";
+import { useAppSelector } from "../../../redux/hooks/hooks";
 import { Colors } from "../../../styledHelpers/Colors";
 import { border, boxShadow, Page } from "../../../styledHelpers/Components";
 import UserData from "./innerComponents/UserData";
@@ -57,11 +59,16 @@ export interface PageProfileProps {}
 
 export const ProfilePage: FC<PageProfileProps> = () => {
 
+  const state = useAppSelector((state) => {
+    const photoSrc = state.photos.photos[userConfig.user].url
+    return {photoSrc}
+  })
+
   return (
     <PageInnerWrapper>
       <UserProfileData>
         <UserLink to="/profile">
-          <UserImg src={"./media/user-photo.jpg"} />
+          <UserImg src={state.photoSrc} />
           <SeeProfile>See Profile</SeeProfile>
         </UserLink>
         <UserData/>

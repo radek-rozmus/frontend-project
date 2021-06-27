@@ -13,6 +13,9 @@ import LoadingScreen from "./innerComponents/LoadingScreen";
 import { Post } from "../../models/types/Post";
 import { setPosts } from "../../redux/actions/postsActions";
 import { setEntities } from "../../redux/actions/entitiesPageActions";
+import { Photo } from "../../models/types/Photo";
+import { setPhotos } from "../../redux/actions/photosActions";
+import { userConfig } from "../../config";
 
 const Layout = styled.div`
   display: flex;
@@ -42,7 +45,7 @@ const App: FC = () => {
         })
       )
       .then((res: User[]) => {
-        dispatch(setUser(res[0]));
+        dispatch(setUser(res[userConfig.user]));
         dispatch(setUsers(res));
       });
     const posts = fetch("https://jsonplaceholder.typicode.com/posts")
@@ -67,7 +70,24 @@ const App: FC = () => {
         entities.splice(32, entities.length - 32);
         dispatch(setEntities(entities));
       });
-    Promise.all([posts, user]).then(() => setLoaded(true));
+
+    const photos = fetch("https://jsonplaceholder.typicode.com/photos")
+      .then((response) => response.json())
+      .then((json) =>
+        json.map((item: any) => {
+          return {
+            albumId: item.albumId,
+            id: item.id,
+            title: item.title,
+            url: item.url,
+            thumbnailUrl: item.thumbnailUrl,
+          };
+        })
+      )
+      .then((res: Photo[]) => {
+        dispatch(setPhotos(res));
+      });
+    Promise.all([posts, user, photos]).then(() => setLoaded(true));
   }, [dispatch]);
 
   return (

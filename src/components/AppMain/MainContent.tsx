@@ -8,6 +8,7 @@ import { ProfilePage } from "../MainPages/ProfilePage/ProfilePage";
 import { TestPage } from "../MainPages/TestPage/TestPage";
 import { EntitiesPage } from "../MainPages/EntitiesPage/EntitiesPage";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import { WorkspacesPage } from "../MainPages/WorkspacesPage/WorkspacesPage";
 
 const PageWrapper = styled.div`
   position: absolute;
@@ -87,6 +88,9 @@ export const MainContent: FC = () => {
         </Route>
         <Route path="/notifications">
           <TestPage />
+        </Route>
+        <Route path="/workspaces">
+          <WorkspacesPage/>
         </Route>
       </Switch>
     </PageWrapper>

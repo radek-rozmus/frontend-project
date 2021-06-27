@@ -12,6 +12,7 @@ import BorderAllIcon from "@material-ui/icons/BorderAll";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import SortByAlphaIcon from "@material-ui/icons/SortByAlpha";
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import AdjustIcon from "@material-ui/icons/Adjust";
 import { fontSize } from "../../../../styledHelpers/FontSizes";
@@ -20,7 +21,12 @@ import { Colors } from "../../../../styledHelpers/Colors";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks/hooks";
 import useDropdown from "react-dropdown-hook";
 import { entitiesFilterChange } from "../../../../redux/actions/filterComponentsActions";
-import { changeEntitiesDisplayStyle, toggleEntitiesFullscreen, toggleEntitiesSort } from "../../../../redux/actions/entitiesPageActions";
+import {
+  changeEntitiesDisplayStyle,
+  toggleEntitiesFullscreen,
+  toggleEntitiesSort,
+  toggleEntitiesSubmenu,
+} from "../../../../redux/actions/entitiesPageActions";
 
 const InnerWrapper = styled(Wrapper)`
   display: grid;
@@ -88,20 +94,23 @@ const FilterToggledComponentItem = styled.li`
   }
 `;
 const FilterComponentWrapper = styled.div`
-position: relative;
+  position: relative;
 `;
 
 export interface EntitiesMenuProps {}
 
 const EntitiesMenu: FC<EntitiesMenuProps> = () => {
-  const localState = useAppSelector((state) => {   
+  const localState = useAppSelector((state) => {
     const entitiesFilter = state.filterComponents.entitiesFilter;
     const filterCategory = state.entities.filterCategory;
-    return { entitiesFilter, filterCategory };
+    const isSubmenuOpen = state.entities.isSubmenuOpen;
+
+    const displayStyle = state.entities.displayStyle;
+    return { entitiesFilter, filterCategory, isSubmenuOpen, displayStyle };
   });
 
   const [dropdownWrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
-  
+
   const menuHandle = () => {
     toggleDropdown();
   };
@@ -141,13 +150,14 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
     dispatch(toggleEntitiesSort());
   };
   const handleShareClick = () => {
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(window.location.href);
   };
   const handleToggleDisplayStyle = () => {
     dispatch(changeEntitiesDisplayStyle());
   };
-
-
+  const handleToggleSubmenu = () => {
+    dispatch(toggleEntitiesSubmenu());
+  };
 
   return (
     <InnerWrapper>
@@ -165,7 +175,7 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
         }}
       >
         <Button
-          startIcon={<BorderAllIcon />}
+          startIcon={localState.displayStyle ? <BorderAllIcon /> : <ListAltIcon/>}
           style={{
             color: Colors.blue,
             backgroundColor: Colors.backgroundgray,
@@ -177,7 +187,7 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
           }}
           onClick={handleToggleDisplayStyle}
         >
-          Mozaic
+          {localState.displayStyle ? 'Mozaic': 'List'}
         </Button>
         <Button
           style={{
@@ -222,66 +232,71 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
               fontWeight: 600,
               border: "none",
             }}
+            onClick={handleToggleSubmenu}
           >
             <MoreHorizIcon />
           </Button>
-          <Button
-            style={{
-              color: Colors.gray,
-              backgroundColor: Colors.white,
-              textTransform: "none",
-              fontSize: fontSize[14],
-              height: "36px",
-              border: "none",
-              borderLeft: `1px solid ${Colors.lightgray}`,
-            }}
-            startIcon={<SortByAlphaIcon />}
-            onClick={handleToggleSort}
-          >
-            Sort
-          </Button>
-          <Button
-            style={{
-              color: Colors.gray,
-              backgroundColor: Colors.white,
-              textTransform: "none",
-              fontSize: fontSize[14],
-              height: "36px",
-              border: "none",
-            }}
-            startIcon={<FiFilter />}
-          >
-            Filter
-          </Button>
-          <Button
-            style={{
-              color: Colors.gray,
-              backgroundColor: Colors.white,
-              textTransform: "none",
-              fontSize: fontSize[14],
-              height: "36px",
-              border: "none",
-              borderLeft: `1px solid ${Colors.lightgray}`,
-            }}
-            onClick={handleToggleFullscreen}
-          >
-            <FullscreenIcon />
-          </Button>
-          <Button
-            style={{
-              color: Colors.gray,
-              backgroundColor: Colors.white,
-              textTransform: "none",
-              fontSize: fontSize[14],
-              height: "36px",
-              border: "none",
-              borderLeft: `1px solid ${Colors.lightgray}`,
-            }}
-            startIcon={<BiShare />}
-            onClick={handleShareClick}
-          >
-            Share
-          </Button>
+          {localState.isSubmenuOpen && (
+            <>
+              <Button
+                style={{
+                  color: Colors.gray,
+                  backgroundColor: Colors.white,
+                  textTransform: "none",
+                  fontSize: fontSize[14],
+                  height: "36px",
+                  border: "none",
+                  borderLeft: `1px solid ${Colors.lightgray}`,
+                }}
+                startIcon={<SortByAlphaIcon />}
+                onClick={handleToggleSort}
+              >
+                Sort
+              </Button>
+              <Button
+                style={{
+                  color: Colors.gray,
+                  backgroundColor: Colors.white,
+                  textTransform: "none",
+                  fontSize: fontSize[14],
+                  height: "36px",
+                  border: "none",
+                }}
+                startIcon={<FiFilter />}
+              >
+                Filter
+              </Button>
+              <Button
+                style={{
+                  color: Colors.gray,
+                  backgroundColor: Colors.white,
+                  textTransform: "none",
+                  fontSize: fontSize[14],
+                  height: "36px",
+                  border: "none",
+                  borderLeft: `1px solid ${Colors.lightgray}`,
+                }}
+                onClick={handleToggleFullscreen}
+              >
+                <FullscreenIcon />
+              </Button>
+              <Button
+                style={{
+                  color: Colors.gray,
+                  backgroundColor: Colors.white,
+                  textTransform: "none",
+                  fontSize: fontSize[14],
+                  height: "36px",
+                  border: "none",
+                  borderLeft: `1px solid ${Colors.lightgray}`,
+                }}
+                startIcon={<BiShare />}
+                onClick={handleShareClick}
+              >
+                Share
+              </Button>
+            </>
+          )}
         </ButtonGroup>
       </Menu>
       <SearchAndFilter>
@@ -302,10 +317,9 @@ const EntitiesMenu: FC<EntitiesMenuProps> = () => {
               outline: "none",
               fontWeight: 600,
               cursor: "pointer",
-              textTransform: 'none',
+              textTransform: "none",
               ...inputBorder(),
-              borderWidth: '1px',
-
+              borderWidth: "1px",
             }}
             endIcon={<FiFilter />}
             onClick={menuHandle}

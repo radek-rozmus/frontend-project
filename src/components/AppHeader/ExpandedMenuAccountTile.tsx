@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { User } from "../../models/types/User";
 
 import { commonMenuElements } from "./ExpandedMenu";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { userConfig } from "../../config";
 
 const AccountTile = styled.div`
   width: 200px;
@@ -98,6 +100,12 @@ export const ExpandedMenuAccountTile: FC<ExpandedMenuAccountTileProps> = (
   props
 ) => {
   const { MenuImg, MenuImgWrapper, MenuImgDescription } = commonMenuElements;
+
+  const state = useAppSelector((state) => {
+    const photoSrc = state.photos.photos[userConfig.user].url
+    return {photoSrc}
+  })
+
   return (
     <>
       <AccountTile>
@@ -105,7 +113,7 @@ export const ExpandedMenuAccountTile: FC<ExpandedMenuAccountTileProps> = (
 
         <Link to="/profile">
           <AccountTileMain>
-            <UserImg src={"./media/user-photo.jpg"} />
+            <UserImg src={state.photoSrc} />
             <UserName>{props.user.name}</UserName>
             <SeeProfile>See Profile</SeeProfile>
           </AccountTileMain>

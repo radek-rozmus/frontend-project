@@ -1,3 +1,4 @@
+import { Photo } from './Photo';
 import { Post } from './Post';
 import{ User } from './User';
 
@@ -8,3 +9,4 @@ export type ActionUserPayload = { type: string; payload: User };
 export type ActionUsersArrayPayload = { type: string; payload: User[] };
 export type ActionBooleanPayload = { type: string; payload: boolean };
 export type ActionPostsPayload= { type: string; payload: Post[] };
+export type ActionPhotosPayload= { type: string; payload: Photo[] };

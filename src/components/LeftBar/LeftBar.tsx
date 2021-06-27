@@ -8,6 +8,8 @@ import { fontSize } from "../../styledHelpers/FontSizes";
 import { User } from "../../models/types/User";
 import { LeftMenu } from "./LeftMenu";
 import { LeftBarDimensions } from "../../styledHelpers/commonVariables";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { userConfig } from "../../config";
 
 const LeftBarWrapper = styled(Wrapper)`
   left: 0;
@@ -115,11 +117,16 @@ export interface LeftMenuProps {
 }
 
 export const LeftBar: FC<LeftMenuProps> = (props) => {
+const state = useAppSelector((state) => {
+  const photoSrc = state.photos.photos[userConfig.user].url
+  return {photoSrc}
+})
+
   return (
     <LeftBarWrapper>
       <UserTile>
         <UserLink to="/profile">
-          <UserImg src={"./media/user-photo.jpg"} />
+          <UserImg src={state.photoSrc} />
           <UserName>{props.user.name}</UserName>
           <UserJobTitle>Developer - {props.user.company}</UserJobTitle>
         </UserLink>

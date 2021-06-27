@@ -6,6 +6,7 @@ import {
   TOGGLE_ENTITIES_FULLSCREEN,
   TOGGLE_ENTITIES_SORT,
   CHANGE_ENTITIES_DISPLAY_STYLE,
+  TOGGLE_ENTITIES_SUBMENU,
 } from "../actions/entitiesPageActions";
 
 export interface EntitiesPageState {
@@ -14,6 +15,7 @@ export interface EntitiesPageState {
   fullscreen: boolean;
   isSorted: boolean;
   displayStyle: DisplayStyle;
+  isSubmenuOpen: boolean;
 }
 
 const initialState = {
@@ -21,7 +23,8 @@ const initialState = {
   entities: [],
   fullscreen: false,
   isSorted: false,
-  displayStyle: DisplayStyle.mosaic,
+  displayStyle: DisplayStyle.mozaic,
+  isSubmenuOpen: false
 };
 
 export const entitiesPageReducer = (
@@ -39,9 +42,11 @@ export const entitiesPageReducer = (
       return { ...state, isSorted: !state.isSorted };
     case CHANGE_ENTITIES_DISPLAY_STYLE:
       let newStyle: DisplayStyle;
-        if(state.displayStyle === DisplayStyle.mosaic) newStyle = DisplayStyle.list;
-        else newStyle = DisplayStyle.mosaic;
+        if(state.displayStyle === DisplayStyle.mozaic) newStyle = DisplayStyle.list;
+        else newStyle = DisplayStyle.mozaic;
       return { ...state, displayStyle: newStyle };
+      case TOGGLE_ENTITIES_SUBMENU:
+      return { ...state, isSubmenuOpen: !state.isSubmenuOpen };
     default:
       return state;
   }
