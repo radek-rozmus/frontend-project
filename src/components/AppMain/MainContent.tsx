@@ -92,6 +92,9 @@ export const MainContent: FC = () => {
         <Route path="/workspaces">
           <WorkspacesPage/>
         </Route>
+        <Route path="/test">
+          <TestPage />
+        </Route>
       </Switch>
     </PageWrapper>
   );

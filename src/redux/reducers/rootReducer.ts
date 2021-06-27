@@ -7,6 +7,7 @@ import { profilePageReducer } from './profilePageReducer';
 import { postsReducer } from './postReducer';
 import { entitiesPageReducer } from './entitiesPageReducer';
 import { photosReducer } from './photosReducer';
+import { workspacesReducer } from './workspacesReducer';
 
 export const rootReducer = combineReducers({
     resumeWork: resumeWorkReducer,
@@ -16,4 +17,5 @@ export const rootReducer = combineReducers({
     posts: postsReducer,
     entities: entitiesPageReducer,
     photos: photosReducer,
+    workspaces: workspacesReducer,
 });

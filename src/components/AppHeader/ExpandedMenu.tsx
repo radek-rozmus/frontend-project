@@ -135,7 +135,7 @@ export const ExpandedMenu: FC<ExpandedMenuProps> = (props) => {
           .toLowerCase()
           .includes(filterInputText.toLowerCase()) && (
           <ExpandedMenuItem
-            to="/client-contract"
+            to="/workspaces"
             iconSrc="./media/icons/comments.png"
             text="Client contract"
           />
@@ -144,14 +144,14 @@ export const ExpandedMenu: FC<ExpandedMenuProps> = (props) => {
           .toLowerCase()
           .includes(filterInputText.toLowerCase()) && (
           <ExpandedMenuItem
-            to="/supplier-contract"
+            to="/workspaces"
             iconSrc="./media/icons/comments.png"
             text="Supplier contract"
           />
         )}
         {"Corporate".toLowerCase().includes(filterInputText.toLowerCase()) && (
           <ExpandedMenuItem
-            to="/corporate"
+            to="/workspaces"
             iconSrc="./media/icons/house.png"
             text="Corporate"
           />
@@ -160,7 +160,7 @@ export const ExpandedMenu: FC<ExpandedMenuProps> = (props) => {
           .toLowerCase()
           .includes(filterInputText.toLowerCase()) && (
           <ExpandedMenuItem
-            to="/group-norms"
+            to="/workspaces"
             iconSrc="./media/icons/entities.png"
             text="Group Norms"
           />
@@ -169,7 +169,7 @@ export const ExpandedMenu: FC<ExpandedMenuProps> = (props) => {
           .toLowerCase()
           .includes(filterInputText.toLowerCase()) && (
           <ExpandedMenuItem
-            to="/real-contracts"
+            to="/workspaces"
             iconSrc="./media/icons/comments.png"
             text="Real estate contracts"
           />

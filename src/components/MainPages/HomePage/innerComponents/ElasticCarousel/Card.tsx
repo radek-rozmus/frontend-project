@@ -9,6 +9,9 @@ import {
 import { Colors } from "../../../../../styledHelpers/Colors";
 import { fontSize } from "../../../../../styledHelpers/FontSizes";
 import { cannotSelect } from "../../../../../styledHelpers/Components";
+import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../../../../redux/hooks/hooks";
+import { setWorkspace } from "../../../../../redux/actions/workspaceActions";
 
 const CardWrapper = styled(Wrapper)`
   position: relative;
@@ -17,6 +20,10 @@ const CardWrapper = styled(Wrapper)`
   height: 240px;
   width: 300px;
   ${cannotSelect()};
+`;
+const StyledLink = styled(Link)`
+  color: ${Colors.fontblue};
+  text-decoration: none;
 `;
 const CardImage = styled.img`
   position: absolute;
@@ -96,8 +103,16 @@ export const Card: FC<CardProps> = ({
   numberOfUsers,
   icon,
 }) => {
+
+  const dispatch = useAppDispatch();
+
+  const handleCardClick = () => {
+    dispatch(setWorkspace(title))
+  }
+
   return (
     <CardWrapper>
+      <StyledLink to="/workspaces" onClick={handleCardClick}>
       <CardImage src={imgSrc} />
       <CardIconWrapper>
         {imgSrc &&
@@ -129,6 +144,7 @@ export const Card: FC<CardProps> = ({
         </TypeAndNumberOfUsers>
         <LastUpdate>Last update 2 days ago</LastUpdate>
       </CardContent>
+    </StyledLink>
     </CardWrapper>
   );
 };
